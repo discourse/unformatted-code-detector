@@ -1,0 +1,47 @@
+<script type="text/discourse-plugin" version="0.8">
+
+!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=0)}([function(module,exports,__webpack_require__){const{h:h}=eval("require")("virtual-dom"),showModal=eval("require")("discourse/lib/show-modal").default,{detectUnformattedCode:detectUnformattedCode}=__webpack_require__(1);api.modifyClass("model:composer",{ucd_previousWarningIgnored:!1,ucd_shouldPermanentlyDismiss:!1,ucd_isPermanentlyDismissed:()=>!!localStorage.ucd_warningPermanentlyDismissed,ucd_shouldIgnoreWarning:Ember.computed("ucd_previousWarningIgnored",function(){return this.ucd_previousWarningIgnored||this.ucd_isPermanentlyDismissed()}),ucd_unformattedCodeDetected:Ember.computed("reply",function(){return detectUnformattedCode(this.reply)}),cantSubmitPost:Ember.computed("ucd_unformattedCodeDetected","ucd_shouldIgnoreWarning",function(){return!(!this.ucd_unformattedCodeDetected||this.ucd_shouldIgnoreWarning)||this._super()})}),api.modifyClass("controller:composer",{save(...e){const t=this.model;if(!t.ucd_unformattedCodeDetected||t.ucd_isPermanentlyDismissed())return this._super(...e);{const n=showModal("ucdWarningModal",{modalClass:"ucd_warning-modal",model:t}),r=this._super;n.actions.ignoreAndProceed=(()=>{t.set("ucd_previousWarningIgnored",!0),t.ucd_shouldPermanentlyDismiss&&this.ucd_permanentlyDismiss(),this.send("closeModal"),r.call(this,...e)}),n.actions.goBackAndFix=(()=>{t.set("ucd_previousWarningIgnored",!1),this.send("closeModal")})}},ucd_permanentlyDismiss(){this.model;localStorage.ucd_warningPermanentlyDismissed="1"},ucd_permanentlyUndismiss(){this.model;localStorage.removeItem("ucd_warningPermanentlyDismissed")}})},function(e,t){const n="[$_a-zA-Z][$_a-zA-Z0-9]*",r=[`[$_]${n}`,`${n}(?:_${n})+`,"(?:^|\\s+)(?:\\/\\/|;)","\\/\\*[\\s\\S]+\\*\\/","('''|\"\"\")[\\s\\S]+\\1",";\\s*$",`${n}\\((?:${n})?\\)`,`${n}\\[(${n}?)\\]`,`${n}\\.${n}`,"^\\s*[{}]\\s*$","\\{\\{.+\\}\\}","[$#]\\{.+\\}","&&|\\|\\||!=|>=|<=|=>|->|>>|<<|::|\\+\\+|\\+=|-=|\\*=|\\/=|\\|=|&=|\\?=","\\\\['\"ntr0\\\\]"],o=["\x3c!--[\\s\\S]*?--\x3e","<[a-zA-Z-]+.*\\/?>","</[a-zA-Z-]+>","&([0-9a-zA-Z]+);$","&#([0-9]{1,7});$","&#x([0-9a-fA-F]{1,6});$"],{include_html:s,matches_to_ignore:d}=settings,i=r.concat(s?o:[]).map(e=>new RegExp(e,"gm"));e.exports={detectUnformattedCode:e=>{return(e=>{let t=0;for(let n=0;n<i.length;n++){const r=i[n],o=e.match(r);if(o&&(t+=o.length),t>d)return!0}return!1})((e=>[/(^`{3,}).*\r?\n[\s\S]*\r?\n\1/gm,/(^~{3,}).*\r?\n[\s\S]*\r?\n\1/gm,/(?:^|(?:\r?\n{2,}))\s*(?:(?: {4}|\t).*(?:\r?\n|$))/g,/\[code.*\][\s\S]*\[\/code\]/gm,/`.+`/g].reduce((e,t)=>e.replace(t,""),e))(e))}}}]);
+</script>
+
+<script type="text/x-handlebars" data-template-name="modal/ucd-warning-modal">
+
+{{#d-modal-body title=(theme-prefix "warning_modal.title")}}
+  {{cook-text (theme-i18n "warning_modal.content")}}
+{{!--   {{
+    preference-checkbox
+    value=model.ucd_shouldPermanentlyDismiss
+    labelKey=(theme-prefix "warning_modal.do_not_show_again")
+  }} --}}
+  <label for="do-not-show-again" class="checkbox-label">
+    {{
+      input
+      type="checkbox"
+      id="do-not-show-again"
+      name="do-not-show-again"
+      checked=model.ucd_shouldPermanentlyDismiss
+    }}
+    {{theme-i18n "warning_modal.do_not_show_again"}}
+  </label>
+
+  <div class="action-buttons">
+    {{
+      d-button
+      action=(action "goBackAndFix" par=1)
+      icon="pencil-alt"
+      tagName="button"
+      class="btn-primary"
+      label=(theme-prefix "warning_modal.fix_post")
+    }}
+
+    {{
+      d-button
+      action=(action "ignoreAndProceed" par=1)
+      tagName="button"
+      class=""
+      label=(theme-prefix "warning_modal.ignore_and_post_anyway")
+    }}
+  </div>
+
+{{/d-modal-body}}
+
+</script>
