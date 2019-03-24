@@ -1,5 +1,8 @@
-const { h } = require('virtual-dom');
-const showModal = require('discourse/lib/show-modal').default;
+
+const { h } = eval('require')('virtual-dom');
+const showModal = eval('require')('discourse/lib/show-modal').default;
+
+const { detectUnformattedCode } = require('./detectCode.js')
 
 api.modifyClass('model:composer', {
   ucd_previousWarningIgnored: false,
