@@ -6,8 +6,8 @@
   },
   "scripts": {
     "concat": "concat -o common/head_tag.html src/scriptStart.html bundles/headTagBundle.js src/scriptEnd.html src/warningModal.hbs",
-    "build-dev": "webpack --mode development ./src/index.js --output ./bundles/headTagBundle.js && npm run concat",
-    "build": "webpack --mode production ./src/index.js --output ./bundles/headTagBundle.js && npm run concat",
+    "build-dev": "webpack --mode development ./src/index.js --output ./bundles/headTagBundle.js && npm run concat && git update-index --assume-unchanged common/head_tag.html",
+    "build": "webpack --mode production ./src/index.js --output ./bundles/headTagBundle.js && npm run concat && git add -f common/head_tag.html",
     "watch": "nodemon --exec \"npm run build-dev\" --watch src -e js,hbs,html",
     "discourse": "discourse_theme watch ."
   }
