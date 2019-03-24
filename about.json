@@ -1,7 +1,7 @@
 {
   "name": "Unformatted Code Detector",
   "component": true,
-  "license_url": null,
+  "license_url": "https://github.com/lionel-rowe/unformatted_code_detector/blob/master/LICENSE",
   "about_url": null,
   "authors": "lionel-rowe",
   "theme_version": "0.0.1",

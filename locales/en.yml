@@ -1,10 +1,10 @@
 en:
   warning_modal:
-    title: Unformatted Code Warning!
+    title: Unformatted Code Warning
     content: |
-      It looks like your post may contain unformatted code. To ensure that it’s readable, make sure to enclose your code in backticks (the <kbd>`</kbd> key on your keyboard).
+      It looks like your post may contain unformatted code. To make it readable, make sure to wrap your code in backticks using the <kbd>`</kbd> key on your keyboard. (<a target="_blank" rel="noopener noreferrer" href="https://superuser.com/a/254077">Where?</a>)
 
-      **Single-line**: [code]`like this`[/code]
+      **Single-line**: `` `like this` ``
 
       **Multiline**:
       ````markdown

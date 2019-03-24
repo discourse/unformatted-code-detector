@@ -5,6 +5,32 @@ $spacer: 15px;
     padding: 0 $spacer;
   }
 
+  .title {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      padding-left: 10px;
+    }
+
+    &::before {
+      content: "!";
+      font-family: sans-serif;
+      color: #fff;
+      background: $danger;
+      width: 1.2em;
+      font-size: 1.2em;
+      font-weight: bold;
+      height: 1.2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      position: relative;
+      bottom: 1px;
+    }
+  }
+
   .checkbox-label {
     display: flex;
     justify-content: flex-end;

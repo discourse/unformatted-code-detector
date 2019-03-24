@@ -1,18 +1,17 @@
 const { h } = require('virtual-dom');
 const showModal = require('discourse/lib/show-modal').default;
 
-// window.detectUnformattedCode = detectUnformattedCode;
-
 api.modifyClass('model:composer', {
   ucd_previousWarningIgnored: false,
 
-  ucd_warningPermanentlyDismissed: !!localStorage.ucd_warningPermanentlyDismissed,
+  ucd_shouldPermanentlyDismiss: false,
+
+  ucd_isPermanentlyDismissed: () => !!localStorage.ucd_warningPermanentlyDismissed,
 
   ucd_shouldIgnoreWarning: Ember.computed(
     'ucd_previousWarningIgnored',
-    'ucd_warningPermanentlyDismissed',
     function() {
-      return this.ucd_previousWarningIgnored || this.ucd_warningPermanentlyDismissed;
+      return this.ucd_previousWarningIgnored || this.ucd_isPermanentlyDismissed();
     }
   ),
 
@@ -36,26 +35,43 @@ api.modifyClass('controller:composer', {
   save(...args) {
     const model = this.model;
 
-    if (model.ucd_unformattedCodeDetected && !model.ucd_warningPermanentlyDismissed) {
-      console.log(showModal('ucdWarningModal'));
+    if (model.ucd_unformattedCodeDetected && !model.ucd_isPermanentlyDismissed()) {
+      const warningModal = showModal('ucdWarningModal', {
+        modalClass: 'ucd_warning-modal',
+        model
+      });
 
+      const _super = this._super;
 
-      // model.set('ucd_previousWarningIgnored', window.confirm('Unformatted code detected. Post anyway?'));
+      warningModal.actions.ignoreAndProceed = (/*{ par }*/) => {
+        model.set('ucd_previousWarningIgnored', true);
+
+        if (model.ucd_shouldPermanentlyDismiss) {
+          this.ucd_permanentlyDismiss();
+        }
+
+        this.send('closeModal');
+        _super.call(this, ...args);
+      };
+
+      warningModal.actions.goBackAndFix = (/*{ par }*/) => {
+        model.set('ucd_previousWarningIgnored', false);
+        this.send('closeModal');
+      };
+
+    } else {
+      return this._super(...args);
     }
-
-    return this._super(...args);
   },
 
   ucd_permanentlyDismiss() {
     const model = this.model;
     localStorage.ucd_warningPermanentlyDismissed = '1';
-    model.ucd_warningPermanentlyDismissed = true;
   },
 
-  ucd_permanentlyUndismiss() {
+  ucd_permanentlyUndismiss() { // mainly for debugging
     const model = this.model;
     localStorage.removeItem('ucd_warningPermanentlyDismissed');
-    model.ucd_warningPermanentlyDismissed = false;
   },
 
 });
