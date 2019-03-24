@@ -28,36 +28,41 @@ const string = `(?:"(?:[^\\r\\n"\\\\]|\\\\[^\\r\\n])*"|'(?:[^\\r\\n'\\\\]|\\\\[^
 // adapted from http://wordaligned.org/articles/string-literals-and-regular-expressions
 const numeric = '-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?';
 // adapted from https://www.json.org/
-const boolean = '(?:true|false)';
-const argument = `(?:${varName}|${string}|${numeric}|${boolean}|null)`;
+const argument = `(?:${varName}|${string}|${numeric})`;
+// ignoring complex values due to complexity;
+// bools, `null`s, and `undefined`s are already matched based on varName
 
 const nonHtmlIndicators = [
   `\\$${varName}`, // almost certain to be var name
-  // omitted: _varName (conflict with italics)
+  `^\\s*\\.${xmlLikeName}`, // CSS class name
+  `:${varName}`, // Ruby symbol
+  // omitted: _varName starting with underscore (conflict with italics)
   `${varName}(?:_${varName})+`, // snake_case
   // ommitted: camelCase and spinal-case (too many false positives)
   '(?:^|\\s+)(?:\\/\\/|;)', // single-line comment
   // omitted: python-style `#` single-line comments (conflict with md headings)
   `\\/\\*[\\s\\S]+?\\*\\/`, // C-like multiline comment
-  `('''|""")[\\s\\S]+?\\1`, // python-like multiline string/comment
+  `('''|""")[\\s\\S]+?\\1`, // Python-like multiline string/comment
   ';\\s*$', // trailing semicolon
-  `${varName}\\(\\s*${argument}?\\s*\\)`, // function call
+  `${varName}\\((?:\\s*${argument}?\\s*(?:,\\s*${argument}\\s*)*)?\\s*\\)`, // function call
   `${varName}\\[\\s*${argument}?\\s*\\]`, // array index
-  `${varName}\\.${varName}`, // object property
+  // omitted: object property (conflict with domain names, e.g. "google.com")
   '^\\s*[{}]\\s*$', // curly brace and nothing else on a line
-  '\\{\\{.+\\}\\}', // templating languages e.g. handlebars
+  '\\{\\{.+\\}\\}', // templating languages e.g. Handlebars
   '[$#]\\{.+\\}', // template string
   '&&|\\|\\||!=|>>|<<|::|\\+\\+|\\+=|-=|\\*=|\\/=|\\|=|&=|\\?=', // various operators
   '\\\\[\'"ntr0\\\\]', // common escape sequences
+  `<\\?[^>]*\\?>`, // PHP
+  `<%[^>]*%>`, // ERB (Rails)
 ];
 
 const htmlIndicators = [
-  '<!--[\\s\\S]*?-->', // xml-like comment
-  `<${xmlLikeName}[^>]*\\/?>`, // xml-like start/empty tag
-  `</${xmlLikeName}>`, // xml-like end tag
-  '&([0-9a-zA-Z]+);$', // html entity - human-readable
-  '&#([0-9]{1,7});$', // html entity - decimal
-  '&#x([0-9a-fA-F]{1,6});$', // html entity - hex
+  '<!--[\\s\\S]*?-->', // XML-like comment
+  `<${xmlLikeName}[^>]*\\/?>`, // XML-like start/empty tag
+  `</${xmlLikeName}>`, // XML-like end tag
+  '&([0-9a-zA-Z]+);', // HTML entity - human-readable
+  '&#([0-9]{1,7});', // HTML entity - decimal
+  '&#x([0-9a-fA-F]{1,6});', // HTML entity - hex
 ];
 
 const { include_html, matches_to_ignore } = settings;
