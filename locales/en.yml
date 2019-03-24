@@ -1,0 +1,18 @@
+en:
+  warning_modal:
+    title: Unformatted Code Warning!
+    content: |
+      It looks like your post may contain unformatted code. To ensure that it’s readable, make sure to enclose your code in backticks (the <kbd>`</kbd> key on your keyboard).
+
+      **Single-line**: [code]`like this`[/code]
+
+      **Multiline**:
+      ````markdown
+      ```
+      like
+      this
+      ```
+      ````
+    do_not_show_again: Don't show this message again.
+    fix_post: Go Back and Fix Post
+    ignore_and_post_anyway: Post Anyway

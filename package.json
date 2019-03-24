@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "concat": "^1.0.3"
+  },
+  "scripts": {
+    "concat": "concat -o common/head_tag.html src/scriptStart.html src/detectCode.js src/index.js src/scriptEnd.html src/modal.hbs",
+    "watch": "nodemon --exec \"npm run concat\" --watch src -e js,hbs,html",
+    "discourse": "discourse_theme watch ."
+  }
+}

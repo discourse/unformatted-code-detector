@@ -1,0 +1,10 @@
+# newbie_post_threshold: 1000
+matches_to_ignore:
+  default: 0
+  min: 0
+  description:
+    en: Ignore the first X matches
+include_html:
+  default: true
+  description:
+    en: Include HTML tags in matches

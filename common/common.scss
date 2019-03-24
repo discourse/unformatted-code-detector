@@ -1,0 +1,20 @@
+$spacer: 15px;
+
+.ucd_warning-modal {
+  .modal-body {
+    padding: 0 $spacer;
+  }
+
+  .checkbox-label {
+    display: flex;
+    justify-content: flex-end;
+    margin: $spacer 0;
+  }
+
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: $spacer 0;
+  }
+}
+
