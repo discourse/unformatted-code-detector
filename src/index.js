@@ -1,6 +1,7 @@
+const _require = eval('require'); // don't use webpack on these `require`s before bundling
 
-const { h } = eval('require')('virtual-dom');
-const showModal = eval('require')('discourse/lib/show-modal').default;
+const { h } = _require('virtual-dom');
+const showModal = _require('discourse/lib/show-modal').default;
 
 const { detectUnformattedCode } = require('./detectCode.js')
 
@@ -46,7 +47,7 @@ api.modifyClass('controller:composer', {
 
       const _super = this._super;
 
-      warningModal.actions.ignoreAndProceed = (/*{ par }*/) => {
+      warningModal.actions.ignoreAndProceed = () => {
         model.set('ucd_previousWarningIgnored', true);
 
         if (model.ucd_shouldPermanentlyDismiss) {
@@ -57,7 +58,7 @@ api.modifyClass('controller:composer', {
         _super.call(this, ...args);
       };
 
-      warningModal.actions.goBackAndFix = (/*{ par }*/) => {
+      warningModal.actions.goBackAndFix = () => {
         model.set('ucd_previousWarningIgnored', false);
         this.send('closeModal');
       };
