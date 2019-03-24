@@ -1,10 +1,14 @@
 {
   "devDependencies": {
-    "concat": "^1.0.3"
+    "concat": "^1.0.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "scripts": {
-    "concat": "concat -o common/head_tag.html src/scriptStart.html src/detectCode.js src/index.js src/scriptEnd.html src/warningModal.hbs",
-    "watch": "nodemon --exec \"npm run concat\" --watch src -e js,hbs,html",
+    "concat": "concat -o common/head_tag.html src/scriptStart.html bundles/headTagBundle.js src/scriptEnd.html src/warningModal.hbs",
+    "build-dev": "webpack --mode development ./src/index.js --output ./bundles/headTagBundle.js && npm run concat",
+    "build": "webpack --mode production ./src/index.js --output ./bundles/headTagBundle.js && npm run concat",
+    "watch": "nodemon --exec \"npm run build-dev\" --watch src -e js,hbs,html",
     "discourse": "discourse_theme watch ."
   }
 }

@@ -79,3 +79,7 @@ const detectUnformattedCode = content => {
   const strippedContent = stripWrappedCode(content);
   return detectCode(strippedContent);
 };
+
+module.exports = {
+  detectUnformattedCode
+};
