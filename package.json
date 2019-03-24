@@ -8,7 +8,7 @@
     "concat": "concat -o common/head_tag.html src/scriptStart.html bundles/headTagBundle.js src/scriptEnd.html src/warningModal.hbs",
     "_build": "mkdir -p bundles && webpack ./src/index.js --output ./bundles/headTagBundle.js",
     "build-dev": "npm run _build -- --mode development && npm run concat && git update-index --assume-unchanged common/head_tag.html",
-    "build": "npm run _build -- --mode production && npm run concat && git add -f common/head_tag.html",
+    "build": "npm run _build -- --mode production && npm run concat && git update-index --no-assume-unchanged common/head_tag.html",
     "watch": "nodemon --exec \"npm run build-dev\" --watch src -e js,hbs,html",
     "discourse": "discourse_theme watch ."
   }
