@@ -31,6 +31,8 @@ const numeric = '-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?';
 const argument = `(?:${varName}|${string}|${numeric})`;
 // ignoring complex values due to complexity;
 // bools, `null`s, and `undefined`s are already matched based on varName
+const argList = `(?:\\s*${argument}\\s*(?:,\\s*${argument}\\s*)*|\\s*)`;
+// matches 0 or more args; don't use on its own due to risk of infinite matches
 
 const nonHtmlIndicators = [
   `\\$${varName}`, // almost certain to be var name
@@ -44,7 +46,7 @@ const nonHtmlIndicators = [
   `\\/\\*[\\s\\S]+?\\*\\/`, // C-like multiline comment
   `('''|""")[\\s\\S]+?\\1`, // Python-like multiline string/comment
   ';\\s*$', // trailing semicolon
-  `${varName}\\((?:\\s*${argument}?\\s*(?:,\\s*${argument}\\s*)*)?\\s*\\)`, // function call
+  `${varName}\\(${argList}\\)`, // function call
   `${varName}\\[\\s*${argument}?\\s*\\]`, // array index
   // omitted: object property (conflict with domain names, e.g. "google.com")
   '^\\s*[{}]\\s*$', // curly brace and nothing else on a line
