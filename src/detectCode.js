@@ -2,7 +2,7 @@
 
 const stripWrappedCode = content => {
   const codeTypes = [
-    /(^([`~])\2{2,}).*\r?\n[\s\S]*?\r?\n\1\2*\s*(?:\r?\n|$)/gm, // backtick-/tilde-fenced block
+    /(^([`~])\2{2,})[^`~\r\n]*\r?\n[\s\S]*?\r?\n\1\2*\s*(?:\r?\n|$)/gm, // backtick-/tilde-fenced block
     /(?:^|(?:\r?\n{2,}))\s*(?:(?: {4}|\t).*(?:\r?\n|$))/g, // indented block
     // lack of `m` flag is intentional (`^` must match beginning of input, not line)
 
