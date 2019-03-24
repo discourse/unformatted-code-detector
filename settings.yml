@@ -3,8 +3,10 @@ matches_to_ignore:
   default: 0
   min: 0
   description:
-    en: Ignore the first X matches
+    en: Ignore the first N matches
+    zh: 忽略前 N 个匹配项
 include_html:
   default: true
   description:
     en: Include HTML tags in matches
+    zh: 匹配项包含 HTML 标签
