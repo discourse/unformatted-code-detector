@@ -1,17 +1,18 @@
 <script type="text/x-handlebars" data-template-name="modal/ucd-warning-modal">
   {{#d-modal-body title=(theme-prefix "warning_modal.title")}}
     {{cook-text (theme-i18n "warning_modal.content")}}
-    <label for="do-not-show-again" class="checkbox-label">
+    <label for="ucd_do-not-show-again" class="checkbox-label">
       {{
         input
         type="checkbox"
-        id="do-not-show-again"
-        name="do-not-show-again"
+        id="ucd_do-not-show-again"
+        name="ucd_do-not-show-again"
         checked=model.ucd_shouldPermanentlyDismiss
       }}
       {{theme-i18n "warning_modal.do_not_show_again"}}
     </label>
     <div class="action-buttons">
+      {{!-- autofocus="true" --}}
       {{
         d-button
         action=(action "goBackAndFix")
