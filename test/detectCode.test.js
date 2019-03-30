@@ -1,3 +1,9 @@
+const wrap = str => {
+  return str.split('\n').length > 1
+    ? '```\n' + str + '\n```'
+    : '`' + str + '`';
+};
+
 const noCode = [
   'hello world',
   'just some _plain old italics_',
@@ -25,7 +31,7 @@ const noCode = [
   '\\',
 ];
 
-const hasUnformattedCode = [
+const withUnformattedCode = [
   'const a = $helloWorld',
   'const a = helloWorld;',
   '.my-class { background: red; }',
@@ -74,13 +80,7 @@ const hasUnformattedCode = [
   '<% hello php %>',
 ];
 
-const hasFormattedCode = hasUnformattedCode.map(txt => {
-  return txt.split('\n').length > 1
-    ? '```\n' + txt + '\n```'
-    : '`' + txt + '`';
-});
-
-const hasBareHTML = [
+const withBareHTML = [
   '<!-- this\n is a \n comment -->',
   '<empty with="attributes">',
   '<empty-no-attributes>',
@@ -92,12 +92,9 @@ const hasBareHTML = [
   'five &#x2a; six',
 ];
 
-const hasFormattedHTML = hasBareHTML.map(txt => {
-  return txt.split('\n').length > 1
-    ? '```\n' + txt + '\n```'
-    : '`' + txt + '`';
-});
+const withFormattedCode = withUnformattedCode.map(wrap);
 
+const withFormattedHTML = withBareHTML.map(wrap);
 
 const expectAll = (fn, tests, expected) => {
   tests.forEach(t => {
@@ -113,10 +110,10 @@ describe('With HTML', () => {
   const { detectUnformattedCode } = require('../src/detectCode');
 
   expectAll(detectUnformattedCode, noCode, false);
-  expectAll(detectUnformattedCode, hasUnformattedCode, true);
-  expectAll(detectUnformattedCode, hasFormattedCode, false);
-  expectAll(detectUnformattedCode, hasBareHTML, true);
-  expectAll(detectUnformattedCode, hasFormattedHTML, false);
+  expectAll(detectUnformattedCode, withUnformattedCode, true);
+  expectAll(detectUnformattedCode, withFormattedCode, false);
+  expectAll(detectUnformattedCode, withBareHTML, true);
+  expectAll(detectUnformattedCode, withFormattedHTML, false);
 });
 
 describe('Without HTML', () => {
@@ -124,5 +121,5 @@ describe('Without HTML', () => {
   global.settings = { include_html: false, matches_to_ignore: 0 };
   const { detectUnformattedCode } = require('../src/detectCode');
 
-  expectAll(detectUnformattedCode, hasBareHTML, false);
+  expectAll(detectUnformattedCode, withBareHTML, false);
 });
