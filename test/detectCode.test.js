@@ -11,6 +11,8 @@ const noCode = [
   'semicolons; also,',
   'freeCodeCamp',
   'hyphenated-word',
+  'C++',
+  'Notepad++',
   'this is (just some stuff in brackets)',
   'this is(just some stuff in brackets, despite the typo)',
   '{ I just happen to like curly braces }',
