@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "concat": "^1.0.3",
+    "jest": "^24.5.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },
@@ -10,6 +11,7 @@
     "build-dev": "npm run _build -- --mode development && npm run concat && git update-index --assume-unchanged common/head_tag.html",
     "build": "npm run _build -- --mode production && npm run concat && git update-index --no-assume-unchanged common/head_tag.html",
     "watch": "nodemon --exec \"npm run build-dev\" --watch src -e js,hbs,html",
-    "discourse": "discourse_theme watch ."
+    "discourse": "discourse_theme watch .",
+    "test": "jest"
   }
 }
