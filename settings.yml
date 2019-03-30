@@ -1,12 +1,18 @@
-# newbie_post_threshold: 1000
+disable_at_trust_level:
+  default: 3
+  min: -1
+  max: 4
+  description:
+    en: Disable warning for users with a trust level of N or higher. -1 = enabled for all users.
+    zh_CN: 不要向信任等级高于 N 的用户显示警告。-1 即向所有用户显示。
 matches_to_ignore:
   default: 0
   min: 0
   description:
-    en: Ignore the first N matches
-    zh: 忽略前 N 个匹配项
+    en: Ignore the first N matches. Higher = less sensitivity.
+    zh_CN: 忽略前 N 个匹配项。更高即减少敏感度。
 include_html:
   default: true
   description:
-    en: Include HTML tags in matches
-    zh: 匹配项包含 HTML 标签
+    en: Include HTML tags in matches.
+    zh_CN: 匹配项包含 HTML 标签。
