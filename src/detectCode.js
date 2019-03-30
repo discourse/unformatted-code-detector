@@ -23,6 +23,7 @@ const stripWrappedCode = content => {
 const varNameStart = '[$_a-zA-Z]';
 const varNameEnd = '[$_a-zA-Z0-9]*';
 const varName = `${varNameStart}${varNameEnd}`;
+const varFragment = `[$a-zA-Z]${varNameEnd}`; // no underscore at start
 const xmlLikeName = '[a-zA-Z-]+';
 const string = `(?:"(?:[^\\r\\n"\\\\]|\\\\[^\\r\\n])*"|'(?:[^\\r\\n'\\\\]|\\\\[^\\r\\n])*')`;
 // adapted from http://wordaligned.org/articles/string-literals-and-regular-expressions
@@ -36,13 +37,13 @@ const argList = `(?:\\s*${argument}\\s*(?:,\\s*${argument}\\s*)*|\\s*)`;
 
 const nonHtmlIndicators = [
   `\\$${varName}`, // almost certain to be var name
-  `^\\s*\\.${xmlLikeName}`, // CSS class name
+  `^\\s*\\.${xmlLikeName}`, // CSS class selectors
   `:${varName}`, // Ruby symbol
   // omitted: _varName starting with underscore (conflict with italics)
-  `${varName}(?:_${varName})+`, // snake_case
+  `${varFragment}(?:_${varFragment})+`, // snake_case
   // ommitted: camelCase and spinal-case (too many false positives)
   '(?:^|\\s+)(?:\\/\\/|;)', // single-line comment
-  // omitted: python-style `#` single-line comments (conflict with md headings)
+  // omitted: python-style `#` single-line comments and CSS ID selectors (conflict with md headings)
   `\\/\\*[\\s\\S]+?\\*\\/`, // C-like multiline comment
   `('''|""")[\\s\\S]+?\\1`, // Python-like multiline string/comment
   ';\\s*$', // trailing semicolon
@@ -51,8 +52,9 @@ const nonHtmlIndicators = [
   // omitted: object property (conflict with domain names, e.g. "google.com")
   '^\\s*[{}]\\s*$', // curly brace and nothing else on a line
   '\\{\\{.+\\}\\}', // templating languages e.g. Handlebars
-  '[$#]\\{.+\\}', // template string
-  '&&|\\|\\||!=|>>|<<|::|\\+\\+|\\+=|-=|\\*=|\\/=|\\|=|&=|\\?=', // various operators
+  '[\\$#]\\{.+\\}', // template string
+  '&&|\\|\\||!=|>>|<<|::|\\+=|-=|\\*=|\\/=|\\|\\|=|&&=|\\?=', // various operators
+  // omitted: ++ (conflict with C++, Notepad++, etc.)
   '\\\\[\'"ntr0\\\\]', // common escape sequences
   `<\\?[^>]*\\?>`, // PHP
   `<%[^>]*%>`, // ERB (Rails)
@@ -62,9 +64,9 @@ const htmlIndicators = [
   '<!--[\\s\\S]*?-->', // XML-like comment
   `<${xmlLikeName}[^>]*\\/?>`, // XML-like start/empty tag
   `</${xmlLikeName}>`, // XML-like end tag
-  '&([0-9a-zA-Z]+);', // HTML entity - human-readable
-  '&#([0-9]{1,7});', // HTML entity - decimal
-  '&#x([0-9a-fA-F]{1,6});', // HTML entity - hex
+  '&[0-9a-zA-Z]+;', // HTML entity - human-readable
+  '&#[0-9]{1,7};', // HTML entity - decimal
+  '&#x[0-9a-fA-F]{1,6};', // HTML entity - hex
 ];
 
 const { include_html, matches_to_ignore } = settings;
