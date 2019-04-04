@@ -53,8 +53,9 @@ const nonHtmlIndicators = [
   '^\\s*[{}]\\s*$', // curly brace and nothing else on a line
   '\\{\\{.+\\}\\}', // templating languages e.g. Handlebars
   '[\\$#]\\{.+\\}', // template string
-  '&&|\\|\\||!=|>>|<<|::|\\+=|-=|\\*=|\\/=|\\|\\|=|&&=|\\?=', // various operators
+  '&&|!=|>>|<<|::|\\+=|-=|\\*=|\\/=|\\|\\|=|\\?=|\\.\\?', // various operators
   // omitted: ++ (conflict with C++, Notepad++, etc.)
+  // omitted: || (conflict with empty table header row)
   '\\\\[\'"ntr0\\\\]', // common escape sequences
   `<\\?[^>]*\\?>`, // PHP
   `<%[^>]*%>`, // ERB (Rails)
