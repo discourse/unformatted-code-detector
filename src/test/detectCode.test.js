@@ -29,6 +29,8 @@ const noCode = [
   '\r',
   '\0',
   '\\',
+  '$15',
+  '||' // empty table heading
 ];
 
 const withUnformattedCode = [
@@ -56,9 +58,9 @@ const withUnformattedCode = [
   '${js}', // exclude backticks to bypass code markup stripping
   '"#{ruby}"',
   '1 && 2',
-  '0 || 1',
   'a != b',
   'a !== b',
+  'exists.?maybeExists',
   'arr << item',
   '0b100 >> 2',
   'Double::Colons',
@@ -107,7 +109,7 @@ const expectAll = (fn, tests, expected) => {
 describe('With HTML', () => {
   jest.resetModules();
   global.settings = { include_html: true, matches_to_ignore: 0 };
-  const { detectUnformattedCode } = require('../src/detectCode');
+  const { detectUnformattedCode } = require('../detectCode');
 
   expectAll(detectUnformattedCode, noCode, false);
   expectAll(detectUnformattedCode, withUnformattedCode, true);
@@ -119,7 +121,7 @@ describe('With HTML', () => {
 describe('Without HTML', () => {
   jest.resetModules();
   global.settings = { include_html: false, matches_to_ignore: 0 };
-  const { detectUnformattedCode } = require('../src/detectCode');
+  const { detectUnformattedCode } = require('../detectCode');
 
   expectAll(detectUnformattedCode, withBareHTML, false);
 });
