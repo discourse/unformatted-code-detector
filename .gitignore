@@ -1,4 +1,3 @@
 src/_archive.js
 node_modules/
-bundles
-# common/head_tag.html
+src/bundles

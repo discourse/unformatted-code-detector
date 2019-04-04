@@ -1,3 +1,9 @@
+const wrap = str => {
+  return str.split('\n').length > 1
+    ? '```\n' + str + '\n```'
+    : '`' + str + '`';
+};
+
 const noCode = [
   'hello world',
   'just some _plain old italics_',
@@ -23,9 +29,11 @@ const noCode = [
   '\r',
   '\0',
   '\\',
+  '$15',
+  '||' // empty table heading
 ];
 
-const hasUnformattedCode = [
+const withUnformattedCode = [
   'const a = $helloWorld',
   'const a = helloWorld;',
   '.my-class { background: red; }',
@@ -50,9 +58,9 @@ const hasUnformattedCode = [
   '${js}', // exclude backticks to bypass code markup stripping
   '"#{ruby}"',
   '1 && 2',
-  '0 || 1',
   'a != b',
   'a !== b',
+  'exists.?maybeExists',
   'arr << item',
   '0b100 >> 2',
   'Double::Colons',
@@ -74,13 +82,7 @@ const hasUnformattedCode = [
   '<% hello php %>',
 ];
 
-const hasFormattedCode = hasUnformattedCode.map(txt => {
-  return txt.split('\n').length > 1
-    ? '```\n' + txt + '\n```'
-    : '`' + txt + '`';
-});
-
-const hasBareHTML = [
+const withBareHTML = [
   '<!-- this\n is a \n comment -->',
   '<empty with="attributes">',
   '<empty-no-attributes>',
@@ -92,12 +94,9 @@ const hasBareHTML = [
   'five &#x2a; six',
 ];
 
-const hasFormattedHTML = hasBareHTML.map(txt => {
-  return txt.split('\n').length > 1
-    ? '```\n' + txt + '\n```'
-    : '`' + txt + '`';
-});
+const withFormattedCode = withUnformattedCode.map(wrap);
 
+const withFormattedHTML = withBareHTML.map(wrap);
 
 const expectAll = (fn, tests, expected) => {
   tests.forEach(t => {
@@ -110,19 +109,19 @@ const expectAll = (fn, tests, expected) => {
 describe('With HTML', () => {
   jest.resetModules();
   global.settings = { include_html: true, matches_to_ignore: 0 };
-  const { detectUnformattedCode } = require('../src/detectCode');
+  const { detectUnformattedCode } = require('../detectCode');
 
   expectAll(detectUnformattedCode, noCode, false);
-  expectAll(detectUnformattedCode, hasUnformattedCode, true);
-  expectAll(detectUnformattedCode, hasFormattedCode, false);
-  expectAll(detectUnformattedCode, hasBareHTML, true);
-  expectAll(detectUnformattedCode, hasFormattedHTML, false);
+  expectAll(detectUnformattedCode, withUnformattedCode, true);
+  expectAll(detectUnformattedCode, withFormattedCode, false);
+  expectAll(detectUnformattedCode, withBareHTML, true);
+  expectAll(detectUnformattedCode, withFormattedHTML, false);
 });
 
 describe('Without HTML', () => {
   jest.resetModules();
   global.settings = { include_html: false, matches_to_ignore: 0 };
-  const { detectUnformattedCode } = require('../src/detectCode');
+  const { detectUnformattedCode } = require('../detectCode');
 
-  expectAll(detectUnformattedCode, hasBareHTML, false);
+  expectAll(detectUnformattedCode, withBareHTML, false);
 });
