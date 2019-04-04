@@ -1,6 +1,5 @@
 const _require = eval('require'); // don't use webpack on these `require`s before bundling
 
-const { h } = _require('virtual-dom');
 const showModal = _require('discourse/lib/show-modal').default;
 
 const { detectUnformattedCode } = require('./detectCode.js')
