@@ -35,12 +35,19 @@ const argument = `(?:${varName}|${string}|${numeric})`;
 const argList = `(?:\\s*${argument}\\s*(?:,\\s*${argument}\\s*)*|\\s*)`;
 // matches 0 or more args; don't use on its own due to risk of infinite matches
 
+const standalone = regexFragment => {
+  const start = '(?:^|\\s)';
+  const end = '(?:$|\\s)';
+
+  return `${start}${regexFragment}${end}`;
+};
+
 const nonHtmlIndicators = [
   `\\$${varName}`, // almost certain to be var name
   `^\\s*\\.${xmlLikeName}`, // CSS class selectors
   `:${varName}`, // Ruby symbol
   // omitted: _varName starting with underscore (conflict with italics)
-  `${varFragment}(?:_${varFragment})+`, // snake_case
+  standalone(`${varFragment}(?:_${varFragment})+`), // snake_case
   // ommitted: camelCase and spinal-case (too many false positives)
   '(?:^|\\s+)(?:\\/\\/|;)', // single-line comment
   // omitted: python-style `#` single-line comments and CSS ID selectors (conflict with md headings)

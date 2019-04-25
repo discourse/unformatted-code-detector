@@ -30,7 +30,8 @@ const noCode = [
   '\0',
   '\\',
   '$15',
-  '||' // empty table heading
+  '||', // empty table heading
+  'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage'
 ];
 
 const withUnformattedCode = [
