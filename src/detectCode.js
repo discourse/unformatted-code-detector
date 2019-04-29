@@ -54,8 +54,8 @@ const nonHtmlIndicators = [
   `\\/\\*[\\s\\S]+?\\*\\/`, // C-like multiline comment
   `('''|""")[\\s\\S]+?\\1`, // Python-like multiline string/comment
   ';\\s*$', // trailing semicolon
-  `${varName}\\(${argList}\\)`, // function call
-  `${varName}\\[\\s*${argument}?\\s*\\]`, // array index
+  standalone(`${varName}\\(${argList}\\)`), // function call
+  standalone(`${varName}\\[\\s*${argument}?\\s*\\]`), // array index
   // omitted: object property (conflict with domain names, e.g. "google.com")
   '^\\s*[{}]\\s*$', // curly brace and nothing else on a line
   '\\{\\{.+\\}\\}', // templating languages e.g. Handlebars
