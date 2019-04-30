@@ -36,7 +36,8 @@ const noCode = [
   'https://www.google.com?foo=bar',
   'https://www.google.com?foo=bar,baz',
   'https://www.google.com?foo[0]=bar&foo[1]=baz',
-  'email@example.com'
+  'email@example.com',
+  'O(n)'
 ];
 
 const withUnformattedCode = [
