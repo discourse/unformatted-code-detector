@@ -33,11 +33,18 @@ const noCode = [
   '||', // empty table heading
   'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage',
   'https://en.wikipedia.org/wiki/LAN_(disambiguation)',
+  '[LAN](https://en.wikipedia.org/wiki/LAN_(disambiguation))',
   'https://www.google.com?foo=bar',
   'https://www.google.com?foo=bar,baz',
   'https://www.google.com?foo[0]=bar&foo[1]=baz',
   'email@example.com',
-  'O(n)'
+  'O(n)',
+  ':smile:',
+  ':slight_smile:',
+  ':+1:',
+  'TradeName(tm)',
+  'copy(c)',
+  'registered(R)',
 ];
 
 const withUnformattedCode = [

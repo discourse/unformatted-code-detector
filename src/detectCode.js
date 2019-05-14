@@ -1,24 +1,4 @@
-/* stripWrappedCode */
-
-const stripWrappedCode = content => {
-  const codeTypes = [
-    /(^([`~])\2{2,})[^`~\r\n]*\r?\n[\s\S]*?\r?\n\1\2*\s*(?:\r?\n|$)/gm, // backtick-/tilde-fenced block
-    /(?:^|(?:\r?\n{2,}))\s*(?:(?: {4}|\t).*(?:\r?\n|$))/g, // indented block
-    // lack of `m` flag is intentional (`^` must match beginning of input, not line)
-
-    /\[code(?: [^\]\r\n])\][\s\S]*\[\/code\]/gm, // BBCode tags
-
-    /`[^`\r\n]+`/g, // inline backticks (must come last)
-  ];
-
-  const strippedContent = codeTypes.reduce((str, codeType) => {
-    return str.replace(codeType, '');
-  }, content);
-
-  return strippedContent;
-};
-
-/* matcher */
+const { stripIgnoredContent } = require('./stripIgnoredContent.js')
 
 const varNameStart = '[$_a-zA-Z]';
 const varNameEnd = '[$_a-zA-Z0-9]*';
@@ -35,28 +15,21 @@ const argument = `(?:${varName}|${string}|${numeric})`;
 const argList = `(?:\\s*${argument}\\s*(?:,\\s*${argument}\\s*)*|\\s*)`;
 // matches 0 or more args; don't use on its own due to risk of infinite matches
 
-const standalone = regexFragment => {
-  const start = '(?:^|\\s)';
-  const end = '(?:$|\\s)';
-
-  return `${start}${regexFragment}${end}`;
-};
-
 const nonHtmlIndicators = [
   `\\$${varName}`, // almost certain to be var name
   `^\\s*\\.${xmlLikeName}`, // CSS class selectors
   `:${varName}`, // Ruby symbol
   // omitted: _varName starting with underscore (conflict with italics)
-  standalone(`${varFragment}(?:_${varFragment})+`), // snake_case
+  `${varFragment}(?:_${varFragment})+`, // snake_case
   // ommitted: camelCase and spinal-case (too many false positives)
   '(?:^|\\s+)(?:\\/\\/|;)', // single-line comment
   // omitted: python-style `#` single-line comments and CSS ID selectors (conflict with md headings)
   `\\/\\*[\\s\\S]+?\\*\\/`, // C-like multiline comment
   `('''|""")[\\s\\S]+?\\1`, // Python-like multiline string/comment
   ';\\s*$', // trailing semicolon
-  standalone(`(?:${varName})?[$_a-z]\\(${argList}\\)`), // function call
+  `(?:${varName})?[$_a-z]\\(${argList}\\)`, // function call
   // var name cannot end with uppercase to avoid `O(n)` false positive etc.
-  standalone(`${varName}\\[\\s*${argument}?\\s*\\]`), // array index
+  `${varName}\\[\\s*${argument}?\\s*\\]`, // array index
   // omitted: object property (conflict with domain names, e.g. "google.com")
   '^\\s*[{}]\\s*$', // curly brace and nothing else on a line
   '\\{\\{.+\\}\\}', // templating languages e.g. Handlebars
@@ -99,7 +72,7 @@ const detectCode = content => {
 };
 
 const detectUnformattedCode = content => {
-  const strippedContent = stripWrappedCode(content);
+  const strippedContent = stripIgnoredContent(content);
   return detectCode(strippedContent);
 };
 
