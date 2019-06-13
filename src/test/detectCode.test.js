@@ -45,6 +45,9 @@ const noCode = [
   'TradeName(tm)',
   'copy(c)',
   'registered(R)',
+  '[quote="David_Bowie, post:8, topic:1120"]\nsome text\n[/quote]',
+  'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\nmore stuff',
+  'empty\n\n[quote="David_Bowie, post:8, topic:1120"][/quote]',
 ];
 
 const withUnformattedCode = [
@@ -94,6 +97,7 @@ const withUnformattedCode = [
   '\\\\',
   '<? hello erb ?>',
   '<% hello php %>',
+  'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\ncode overHere()',
 ];
 
 const withBareHTML = [

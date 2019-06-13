@@ -5,9 +5,9 @@ const stripIgnoredContent = content => {
     /(?:^|(?:\r?\n{2,}))\s*(?:(?: {4}|\t).*(?:\r?\n|$))/g, // indented block
     // lack of `m` flag is intentional (`^` must match beginning of input, not line)
 
-    /\[code(?: [^\]\r\n])\][\s\S]*\[\/code\]/gm, // BBCode tags
+    /`[^`\r\n]+`/g, // inline backticks (must come after fenced code blocks)
 
-    /`[^`\r\n]+`/g, // inline backticks (must come last)
+    /\[([a-z]+).*?\][\s\S]*?\[\/\1\]/gim, // BBCode tags
 
     // emojis
     /:[a-z_0-9+-]+:/g,
