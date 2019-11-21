@@ -40,7 +40,7 @@ const nonHtmlIndicators = [
   '\\\\[\'"ntr0\\\\]', // common escape sequences
   `<\\?[^>]*\\?>`, // PHP
   `<%[^>]*%>`, // ERB (Rails)
-  `"${varName}"\\s*:`, // JSON property
+  `^\\s*{\\s*"${varName}"\\s*:`, // single-line JSON property
 ];
 
 const htmlIndicators = [
