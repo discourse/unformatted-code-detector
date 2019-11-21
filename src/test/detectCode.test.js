@@ -98,6 +98,7 @@ const withUnformattedCode = [
   '<? hello erb ?>',
   '<% hello php %>',
   'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\ncode overHere()',
+  '{"a": 1}'
 ];
 
 const withBareHTML = [
