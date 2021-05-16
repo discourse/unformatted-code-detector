@@ -16,7 +16,3 @@ include_html:
   description:
     en: Include HTML tags in matches.
     zh_CN: 匹配项包含 HTML 标签。
-extend_content_security_policy:
-  type: list
-  default: "script_src: 'unsafe-eval'"
-  

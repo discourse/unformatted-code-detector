@@ -1,4 +1,4 @@
-const stripIgnoredContent = content => {
+export const stripIgnoredContent = (content) => {
   const ignoredContents = [
     // properly formatted code
     /(^([`~])\2{2,})[^`~\r\n]*\r?\n[\s\S]*?\r?\n\1\2*\s*(?:\r?\n|$)/gm, // backtick-/tilde-fenced block
@@ -17,16 +17,12 @@ const stripIgnoredContent = content => {
     // for Wikipedia-style URLs
 
     // misc
-    /\((?:c|tm|r)\)/ig, // copy/trademark/registered
+    /\((?:c|tm|r)\)/gi, // copy/trademark/registered
   ];
 
   const strippedContent = ignoredContents.reduce((str, ignoredContent) => {
-    return str.replace(ignoredContent, '');
+    return str.replace(ignoredContent, "");
   }, content);
 
   return strippedContent;
-};
-
-module.exports = {
-  stripIgnoredContent
 };

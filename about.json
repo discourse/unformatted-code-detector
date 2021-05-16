@@ -4,12 +4,8 @@
   "license_url": "https://github.com/lionel-rowe/unformatted_code_detector/blob/master/LICENSE",
   "about_url": "https://meta.discourse.org/t/unformatted-code-detector-theme-component/112773",
   "authors": "Lionel Rowe",
-  "theme_version": "0.9",
+  "theme_version": "0.10",
   "minimum_discourse_version": null,
   "maximum_discourse_version": null,
-  "assets": {
-  },
-  "color_schemes": {
-  },
   "learn_more": "https://meta.discourse.org/t/beginners-guide-to-using-discourse-themes/91966"
 }

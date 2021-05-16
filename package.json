@@ -1,17 +1,25 @@
 {
   "devDependencies": {
-    "concat": "^1.0.3",
-    "jest": "^24.5.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "@babel/preset-env": "^7.14.2",
+    "babel-jest": "^26.6.3",
+    "jest": "^24.5.0"
   },
   "scripts": {
-    "concat": "concat -o common/head_tag.html src/scriptStart.html src/bundles/headTagBundle.js src/scriptEnd.html src/warningModal.hbs",
-    "_build": "mkdir -p src/bundles && webpack ./src/index.js --output ./src/bundles/headTagBundle.js",
-    "build-dev": "npm run _build -- --mode development && npm run concat && git update-index --assume-unchanged common/head_tag.html",
-    "build": "npm run _build -- --mode production && npm run concat && git update-index --no-assume-unchanged common/head_tag.html",
-    "watch": "nodemon --exec \"npm run build-dev\" --watch src -e js,hbs,html --ignore src/bundles --ignore src/test",
     "discourse": "discourse_theme watch .",
-    "test": "jest"
+    "test": "jest --watch"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.js.es6$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "js.es6"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src/node_modules"
+    ]
   }
 }
