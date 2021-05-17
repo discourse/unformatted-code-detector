@@ -44,6 +44,8 @@ export const noCode = [
   '[quote="David_Bowie, post:8, topic:1120"]\nsome text\n[/quote]',
   'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\nmore stuff',
   'empty\n\n[quote="David_Bowie, post:8, topic:1120"][/quote]',
+  "[abc](https://www.google.com)",
+  "![abc](https://www.google.com/img.png)",
 ];
 
 export const withUnformattedCode = [
@@ -94,6 +96,17 @@ export const withUnformattedCode = [
   "<? hello erb ?>",
   "<% hello php %>",
   'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\ncode overHere()',
+  "2021-05-17T13:40:52.845Z",
+  "2021-05-17T13:40:52.845+01:00",
+  "2021-05-17T13:40:52.845-01:00",
+  "2021-05-17T13:40:52.845",
+  "2021-05-17T13:40:52",
+  "2021-05-17T13:40:52Z",
+  "2021-05-17T13:40:52+01:00",
+  "2021-05-17T13:40:52-01:00",
+  "error\nat java.base/java.lang.Thread.dumpStack(Thread.java:1383)",
+  "error\n\tat com.somewhere.stacktraces.StackTrace.d(StackTrace.java:23)",
+  "error\n    at unwrapOpResult (deno:core/core.js:106:13)",
 ];
 
 export const withBareHTML = [
