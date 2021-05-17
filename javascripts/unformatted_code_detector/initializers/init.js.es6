@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import showModal from "discourse/lib/show-modal";
-import { detectUnformattedCode } from "../lib/detectCode";
+import { detectUnformattedCode } from "../lib/detect-code";
 
 const disableAtTrustLevel =
   settings.disable_at_trust_level === -1

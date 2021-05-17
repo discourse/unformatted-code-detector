@@ -1,4 +1,4 @@
-import { stripIgnoredContent } from "./stripIgnoredContent";
+import { stripIgnoredContent } from "./strip-ignored-content";
 
 const varNameStart = "[$_a-zA-Z]";
 const varNameEnd = "[$_a-zA-Z0-9]*";
