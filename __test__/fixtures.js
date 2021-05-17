@@ -46,6 +46,10 @@ export const noCode = [
   'empty\n\n[quote="David_Bowie, post:8, topic:1120"][/quote]',
   "[abc](https://www.google.com)",
   "![abc](https://www.google.com/img.png)",
+  "That's Japanese. ;)\n\nFunny bug though.",
+  "That's Japanese. :stuck_out_tongue:\n\nFunny bug though.",
+  "That's Japanese. :???:\n\nFunny bug though.",
+  "That's Japanese. :!:\n\nFunny bug though.",
 ];
 
 export const withUnformattedCode = [
