@@ -9,12 +9,14 @@ export const stripIgnoredContent = (content) => {
 
     /\[([a-z]+).*?\][\s\S]*?\[\/\1\]/gim, // BBCode tags
 
-    // emojis
-    /:[a-z_+-][a-z_0-9+-]*:/g,
-
     // URLs
     /https?:\/\/(_\([^() \r\n\t]+\)|[^() \r\n\t])+/g, // parens/underscores
     // for Wikipedia-style URLs
+
+    // emojis
+    /:[a-z_+-][a-z_0-9+-]*:/g, // descriptive style, e.g. :wink:, :stuck_out_tongue:
+    /:D|:-D|:\)|:-\)|;\)|;-\)|:\(|:-\(|:o|:-o|:\?|:-\?|:\?\?\?:|8\)|8-\)|:x|:-x|:P|:-P|:!:|:\?:|:\||:-\||^_^|^__^|:'\(|:'-\(|:-'\(|:p|:O|:-O|:\/|;P|;-P|:\$|:-\$/g, // emoticon style, e.g. ;), :-P
+    // per https://github.com/discourse/discourse/blob/dc6b547ed89f652b5406489d76140b76cf8e0d1d/script/import_scripts/phpbb3/support/smiley_processor.rb#L36-L63 and https://github.com/discourse/discourse/blob/0eeedf307a8f2a8e1ccd5b24dafbf5a7fd20e51e/lib/emoji/db.json#L7015-L7042
 
     // misc
     /\((?:c|tm|r)\)/gi, // copy/trademark/registered
