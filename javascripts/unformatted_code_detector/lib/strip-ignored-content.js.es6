@@ -10,7 +10,7 @@ export const stripIgnoredContent = (content) => {
     /\[([a-z]+).*?\][\s\S]*?\[\/\1\]/gim, // BBCode tags
 
     // emojis
-    /:[a-z_0-9+-]+:/g,
+    /:[a-z_+-][a-z_0-9+-]*:/g,
 
     // URLs
     /https?:\/\/(_\([^() \r\n\t]+\)|[^() \r\n\t])+/g, // parens/underscores

@@ -40,6 +40,8 @@ const nonHtmlIndicators = [
   "\\\\['\"ntr0\\\\]", // common escape sequences
   `<\\?[^>]*\\?>`, // PHP
   `<%[^>]*%>`, // ERB (Rails)
+  "0000-00-00T00:00:00".split("0").join("\\d"), // ISO 8601 timestamps in logs
+  "^\\s*at .+(.+)", // common stack trace format
 ];
 
 const htmlIndicators = [
