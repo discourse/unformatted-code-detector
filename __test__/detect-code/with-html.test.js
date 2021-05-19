@@ -5,11 +5,18 @@ import {
   withFormattedCode,
   withBareHTML,
   withFormattedHTML,
-} from "../fixtures";
+} from "../fixtures/fixtures";
 
 describe("With HTML", () => {
   jest.resetModules();
-  global.settings = { include_html: true, matches_to_ignore: 0 };
+
+  global.settings = {
+    include_html: true,
+    sensitivity: 1,
+    min_post_length_to_check: 0,
+    max_post_length_to_check: -1,
+  };
+
   const {
     detectUnformattedCode,
   } = require("../../javascripts/unformatted_code_detector/lib/detect-code.js.es6");

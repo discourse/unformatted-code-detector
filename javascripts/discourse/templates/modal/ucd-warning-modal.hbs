@@ -11,7 +11,6 @@
     {{theme-i18n "warning_modal.do_not_show_again"}}
   </label>
   <div class="action-buttons">
-    {{!-- autofocus="true" --}}
     {{
       d-button
       action=(action "goBackAndFix")
@@ -24,7 +23,6 @@
       d-button
       action=(action "ignoreAndProceed")
       tagName="button"
-      class="btn-danger"
       label=(theme-prefix "warning_modal.ignore_and_post_anyway")
     }}
   </div>

@@ -1,16 +1,16 @@
 export const stripIgnoredContent = (content) => {
   const ignoredContents = [
     // properly formatted code
-    /(^([`~])\2{2,})[^`~\r\n]*\r?\n[\s\S]*?\r?\n\1\2*\s*(?:\r?\n|$)/gm, // backtick-/tilde-fenced block
-    /(?:^|(?:\r?\n{2,}))\s*(?:(?: {4}|\t).*(?:\r?\n|$))/g, // indented block
+    /(^([`~])\2{2,})[^`~\n]*\n[\s\S]*?\n\1\2*\s*(?:\n|$)/gm, // backtick-/tilde-fenced block
+    /(?:^|(?:\n{2,}))\s*(?:(?: {4}|\t).*(?:\n|$))/g, // indented block
     // lack of `m` flag is intentional (`^` must match beginning of input, not line)
 
-    /`[^`\r\n]+`/g, // inline backticks (must come after fenced code blocks)
+    /`[^`\n]+`/g, // inline backticks (must come after fenced code blocks)
 
     /\[([a-z]+).*?\][\s\S]*?\[\/\1\]/gim, // BBCode tags
 
     // URLs
-    /https?:\/\/(_\([^() \r\n\t]+\)|[^() \r\n\t])+/g, // parens/underscores
+    /https?:\/\/(_\([^() \n\t]+\)|[^() \n\t])+/g, // parens/underscores
     // for Wikipedia-style URLs
 
     // emojis
@@ -20,6 +20,9 @@ export const stripIgnoredContent = (content) => {
 
     // misc
     /\((?:c|tm|r)\)/gi, // copy/trademark/registered
+
+    // markdown links and images
+    /!?\[[^\]]+\]\([[^\)]+\)/g,
   ];
 
   const strippedContent = ignoredContents.reduce((str, ignoredContent) => {

@@ -1,4 +1,4 @@
-import { wrap } from "./utils";
+import { wrap } from "../utils";
 
 export const noCode = [
   "hello world",
@@ -22,7 +22,6 @@ export const noCode = [
   '"',
   "\n",
   "\t",
-  "\r",
   "\0",
   "\\",
   "$15",
@@ -100,6 +99,7 @@ export const withUnformattedCode = [
   "<? hello erb ?>",
   "<% hello php %>",
   'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\ncode overHere()',
+  'some other stuff\n\n[quote="David_Bowie, post:8, topic:1120"]\nquoted text\n[/quote]\n\ncode overHere()\n\n\na',
   "2021-05-17T13:40:52.845Z",
   "2021-05-17T13:40:52.845+01:00",
   "2021-05-17T13:40:52.845-01:00",
@@ -111,6 +111,20 @@ export const withUnformattedCode = [
   "error\nat java.base/java.lang.Thread.dumpStack(Thread.java:1383)",
   "error\n\tat com.somewhere.stacktraces.StackTrace.d(StackTrace.java:23)",
   "error\n    at unwrapOpResult (deno:core/core.js:106:13)",
+  '{"a": 1}',
+  '{"a":"b","c":"d"}',
+  '{"a": "b","c": "d"}',
+  '{ "a": "b","c": "d" }',
+  '{ "a" : "b","c" : "d" }',
+  `a != b
+some prose
+/* multi
+line != !=
+comment */
+
+a != 5
+a != 7
+`,
 ];
 
 export const withBareHTML = [
