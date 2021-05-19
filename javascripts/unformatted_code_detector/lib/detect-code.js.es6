@@ -1,80 +1,104 @@
+import { getLineBoundaries, isBetween } from "./helpers";
 import { stripIgnoredContent } from "./strip-ignored-content";
+import {
+  codeEnergyIndicators,
+  CodeEnergyLevels,
+  codeEnergyValues,
+} from "./code-energy";
+import {
+  complexMatchesToIgnore,
+  minSequentialLinesToMatch,
+  minTotalCodeEnergy,
+} from "./sensitivity";
 
-const varNameStart = "[$_a-zA-Z]";
-const varNameEnd = "[$_a-zA-Z0-9]*";
-const varName = `${varNameStart}${varNameEnd}`;
-const varFragment = `[$a-zA-Z]${varNameEnd}`; // no underscore at start
-const xmlLikeName = "[a-zA-Z-]+";
-const string = `(?:"(?:[^\\r\\n"\\\\]|\\\\[^\\r\\n])*"|'(?:[^\\r\\n'\\\\]|\\\\[^\\r\\n])*')`;
-// adapted from http://wordaligned.org/articles/string-literals-and-regular-expressions
-const numeric = "-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?";
-// adapted from https://www.json.org/
-const argument = `(?:${varName}|${string}|${numeric})`;
-// ignoring complex values due to complexity;
-// bools, `null`s, and `undefined`s are already matched based on varName
-const argList = `(?:\\s*${argument}\\s*(?:,\\s*${argument}\\s*)*|\\s*)`;
-// matches 0 or more args; don't use on its own due to risk of infinite matches
+const { min_post_length_to_check, max_post_length_to_check } = settings;
 
-const nonHtmlIndicators = [
-  `\\$${varName}`, // almost certain to be var name
-  `^\\s*\\.${xmlLikeName}`, // CSS class selectors
-  `:${varName}`, // Ruby symbol
-  // omitted: _varName starting with underscore (conflict with italics)
-  `${varFragment}(?:_${varFragment})+`, // snake_case
-  // ommitted: camelCase and spinal-case (too many false positives)
-  "(?:^|\\s+)(?:\\/\\/|;)", // single-line comment
-  // omitted: python-style `#` single-line comments and CSS ID selectors (conflict with md headings)
-  `\\/\\*[\\s\\S]+?\\*\\/`, // C-like multiline comment
-  `('''|""")[\\s\\S]+?\\1`, // Python-like multiline string/comment
-  ";\\s*$", // trailing semicolon
-  `(?:${varName})?[$_a-z]\\(${argList}\\)`, // function call
-  // var name cannot end with uppercase to avoid `O(n)` false positive etc.
-  `${varName}\\[\\s*${argument}?\\s*\\]`, // array index
-  // omitted: object property (conflict with domain names, e.g. "google.com")
-  "^\\s*[{}]\\s*$", // curly brace and nothing else on a line
-  "\\{\\{.+\\}\\}", // templating languages e.g. Handlebars
-  "[\\$#]\\{.+\\}", // template string
-  "&&|!=|>>|<<|::|\\+=|-=|\\*=|\\/=|\\|\\|=|\\?=|\\.\\?", // various operators
-  // omitted: ++ (conflict with C++, Notepad++, etc.)
-  // omitted: || (conflict with empty table header row)
-  "\\\\['\"ntr0\\\\]", // common escape sequences
-  `<\\?[^>]*\\?>`, // PHP
-  `<%[^>]*%>`, // ERB (Rails)
-  "0000-00-00T00:00:00".split("0").join("\\d"), // ISO 8601 timestamps in logs
-  "^\\s*at .+(.+)", // common stack trace format
-];
+export const getCodeEnergy = (content) => {
+  let totalCodeEnergy = 0;
+  let totalComplexMatches = 0;
 
-const htmlIndicators = [
-  "<!--[\\s\\S]*?-->", // XML-like comment
-  `<${xmlLikeName}[^>]*\\/?>`, // XML-like start/empty tag
-  `</${xmlLikeName}>`, // XML-like end tag
-  "&[0-9a-zA-Z]+;", // HTML entity - human-readable
-  "&#[0-9]{1,7};", // HTML entity - decimal
-  "&#x[0-9a-fA-F]{1,6};", // HTML entity - hex
-];
+  const lines = getLineBoundaries(content);
 
-const { include_html, matches_to_ignore } = settings;
+  lines.forEach((x) => (x.matches = 0));
 
-const indicators = nonHtmlIndicators
-  .concat(include_html ? htmlIndicators : [])
-  .map((str) => new RegExp(str, "gm"));
+  for (const { matcher, value } of codeEnergyIndicators) {
+    const matches = [...content.matchAll(matcher)];
 
-const detectCode = (content) => {
-  let matchCount = 0;
+    totalCodeEnergy += matches.length * value;
 
-  for (let idx = 0; idx < indicators.length; idx++) {
-    const indicator = indicators[idx];
-    const matches = content.match(indicator);
+    if (value === codeEnergyValues[CodeEnergyLevels.Complex]) {
+      totalComplexMatches += matches.length;
+    }
 
-    if (matches) matchCount += matches.length;
+    for (const match of matches) {
+      const startIndex = match.index;
+      const endIndex = startIndex + match[0].length;
 
-    if (matchCount > matches_to_ignore) return true;
+      for (const line of lines) {
+        const isThisLine = isBetween(line.start, line.end);
+
+        if (
+          isThisLine(startIndex) ||
+          isThisLine(endIndex) ||
+          (line.start >= startIndex && line.end <= endIndex)
+        ) {
+          ++line.matches;
+        }
+      }
+    }
   }
 
-  return false;
+  return { totalCodeEnergy, totalComplexMatches, lines };
+};
+
+export const numSequentialLinesWithThresholdCodeEnergy = (threshold) => (
+  lines
+) => {
+  let maxContiguous = 0;
+  let curContiguous = 0;
+
+  for (const line of lines) {
+    // empty/whitespace-only lines don't affect contiguity
+    if (!line.content.trim().length) continue;
+
+    if (line.matches >= threshold) {
+      ++curContiguous;
+    } else {
+      maxContiguous = Math.max(maxContiguous, curContiguous);
+      curContiguous = 0;
+    }
+  }
+
+  return Math.max(maxContiguous, curContiguous);
+};
+
+const detectCode = (content) => {
+  const { totalCodeEnergy, totalComplexMatches, lines } = getCodeEnergy(
+    content
+  );
+
+  if (totalComplexMatches <= complexMatchesToIgnore) return false;
+
+  if (totalCodeEnergy < minTotalCodeEnergy) return false;
+
+  if (
+    numSequentialLinesWithThresholdCodeEnergy(
+      codeEnergyValues[CodeEnergyLevels.Complex]
+    )(lines) < minSequentialLinesToMatch
+  ) {
+    return false;
+  }
+
+  return true;
 };
 
 export const detectUnformattedCode = (content) => {
   const strippedContent = stripIgnoredContent(content);
-  return detectCode(strippedContent);
+
+  return isBetween(
+    min_post_length_to_check,
+    max_post_length_to_check === -1 ? Infinity : max_post_length_to_check
+  )(content.length)
+    ? detectCode(strippedContent)
+    : false;
 };

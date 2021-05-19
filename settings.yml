@@ -5,14 +5,23 @@ disable_at_trust_level:
   description:
     en: Disable warning for users with a trust level of N or higher. -1 = enabled for all users.
     zh_CN: 不要向信任等级高于 N 的用户显示警告。-1 即向所有用户显示。
-matches_to_ignore:
-  default: 0
+sensitivity:
+  default: 0.5
+  min: 0
+  max: 1
+  description:
+    en: Sensitivity of the detection algorithm. 0 = plugin disabled; 1 = warn for anything that looks even slightly like code.
+min_post_length_to_check:
+  default: 50
   min: 0
   description:
-    en: Ignore the first N matches. Higher = less sensitivity.
-    zh_CN: 忽略前 N 个匹配项。更高即减少敏感度。
+    en: Minimum post length to check (number of characters).
+max_post_length_to_check:
+  default: -1
+  min: -1
+  description:
+    en: Maximum post length to check (number of characters). -1 = no maximum.
 include_html:
   default: true
   description:
-    en: Include HTML tags in matches.
-    zh_CN: 匹配项包含 HTML 标签。
+    en: Check for HTML tags as well as other types of code. Recommended to disable if users frequently need to render custom HTML in their posts.
