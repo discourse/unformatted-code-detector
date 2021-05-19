@@ -50,6 +50,8 @@ export const noCode = [
   "That's Japanese. :stuck_out_tongue:\n\nFunny bug though.",
   "That's Japanese. :???:\n\nFunny bug though.",
   "That's Japanese. :!:\n\nFunny bug though.",
+  "Please read the following attachment\n\n[certificate.pdf|attachment](upload://4KTUbKTzhNHwhehPczlNZvxxlaZ.pdf) (54,1 Ko)",
+  "Look at this amazing picture!\n\n![image|666x500](upload://wLp2YD6Tqxxh0YmRvpwG5mqQhOM.jpeg)",
 ];
 
 export const withUnformattedCode = [
