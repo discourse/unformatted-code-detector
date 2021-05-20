@@ -2,7 +2,8 @@
   "devDependencies": {
     "@babel/preset-env": "^7.14.2",
     "babel-jest": "^26.6.3",
-    "jest": "^24.5.0"
+    "jest": "^24.5.0",
+    "js-yaml": "^3.14.1"
   },
   "scripts": {
     "discourse": "discourse_theme watch .",

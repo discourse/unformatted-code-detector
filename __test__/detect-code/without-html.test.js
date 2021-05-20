@@ -1,14 +1,14 @@
-import { expectAll } from "../utils";
-import { withBareHTML } from "../fixtures/fixtures";
+import { expectAll, defaultSettings } from "../utils";
+import { withBareHTML } from "../fixtures/basic";
 
 describe("Without HTML", () => {
   jest.resetModules();
 
   global.settings = {
+    ...defaultSettings,
     include_html: false,
     sensitivity: 1,
     min_post_length_to_check: 0,
-    max_post_length_to_check: -1,
   };
 
   const {

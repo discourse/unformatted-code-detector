@@ -1,14 +1,13 @@
-import { expectAll } from "./utils";
-import { withUnformattedCode } from "./fixtures/fixtures";
+import { expectAll, defaultSettings } from "./utils";
+import { withUnformattedCode } from "./fixtures/basic";
 
 describe("ignore if too short", () => {
   jest.resetModules();
 
   global.settings = {
-    include_html: false,
+    ...defaultSettings,
     sensitivity: 1,
     min_post_length_to_check: 10_000,
-    max_post_length_to_check: -1,
   };
 
   const {
@@ -22,9 +21,8 @@ describe("ignore if too long", () => {
   jest.resetModules();
 
   global.settings = {
-    include_html: false,
+    ...defaultSettings,
     sensitivity: 1,
-    min_post_length_to_check: 0,
     max_post_length_to_check: 1,
   };
 
