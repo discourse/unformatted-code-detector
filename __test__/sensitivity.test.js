@@ -1,12 +1,9 @@
+import { defaultSettings } from "./utils";
+
 describe("apply sensitivity", () => {
   jest.resetModules();
 
-  global.settings = {
-    include_html: true,
-    matches_to_ignore: 0,
-    min_sequential_lines_to_match: 3,
-    min_post_length_to_check: 0,
-  };
+  global.settings = defaultSettings;
 
   const {
     _applySensitivity,

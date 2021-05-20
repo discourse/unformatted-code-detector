@@ -1,9 +1,10 @@
+import { defaultSettings } from "./utils";
+
 describe("sequential lines", () => {
   jest.resetModules();
 
   global.settings = {
-    include_html: true,
-    matches_to_ignore: 0,
+    ...defaultSettings,
     min_sequential_lines_to_match: 3,
     min_post_length_to_check: 0,
   };

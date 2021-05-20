@@ -1,20 +1,19 @@
-import { expectAll } from "../utils";
+import { expectAll, defaultSettings } from "../utils";
 import {
   noCode,
   withUnformattedCode,
   withFormattedCode,
   withBareHTML,
   withFormattedHTML,
-} from "../fixtures/fixtures";
+} from "../fixtures/basic";
 
 describe("With HTML", () => {
   jest.resetModules();
 
   global.settings = {
-    include_html: true,
+    ...defaultSettings,
     sensitivity: 1,
     min_post_length_to_check: 0,
-    max_post_length_to_check: -1,
   };
 
   const {
