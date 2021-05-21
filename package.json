@@ -1,26 +1,6 @@
 {
-  "devDependencies": {
-    "@babel/preset-env": "^7.14.2",
-    "babel-jest": "^26.6.3",
-    "jest": "^24.5.0",
-    "js-yaml": "^3.14.1"
-  },
   "scripts": {
     "discourse": "discourse_theme watch .",
-    "test": "jest --watch"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.js.es6$": "babel-jest"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "js.es6"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src/node_modules"
-    ]
+    "test": "./scripts/watch-tests.sh"
   }
 }

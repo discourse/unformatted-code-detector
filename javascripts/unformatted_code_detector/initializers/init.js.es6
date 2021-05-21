@@ -2,7 +2,7 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 import showModal from "discourse/lib/show-modal";
 import { detectUnformattedCode } from "../lib/detect-code";
 
-const disableAtTrustLevel =
+const getDisableAtTrustLevel = () =>
   settings.disable_at_trust_level === -1
     ? Infinity
     : settings.disable_at_trust_level;
@@ -26,7 +26,7 @@ export default {
           return (
             this.ucd_previousWarningIgnored ||
             this.ucd_checkPermanentlyDismissed() ||
-            api.getCurrentUser().trust_level >= disableAtTrustLevel
+            api.getCurrentUser().trust_level >= getDisableAtTrustLevel()
           );
         },
 

@@ -1,4 +1,4 @@
-import { wrap } from "../utils";
+import { wrap } from "../helpers/utils";
 
 export const noCode = [
   "hello world",

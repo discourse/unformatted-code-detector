@@ -1,17 +1,11 @@
 import { getLineBoundaries, isBetween } from "./helpers";
 import { stripIgnoredContent } from "./strip-ignored-content";
 import {
-  codeEnergyIndicators,
+  getCodeEnergyIndicators,
   CodeEnergyLevels,
   codeEnergyValues,
 } from "./code-energy";
-import {
-  complexMatchesToIgnore,
-  minSequentialLinesToMatch,
-  minTotalCodeEnergy,
-} from "./sensitivity";
-
-const { min_post_length_to_check, max_post_length_to_check } = settings;
+import { sensitivityConfig } from "./sensitivity";
 
 export const getCodeEnergy = (content) => {
   let totalCodeEnergy = 0;
@@ -21,7 +15,7 @@ export const getCodeEnergy = (content) => {
 
   lines.forEach((x) => (x.matches = 0));
 
-  for (const { matcher, value } of codeEnergyIndicators) {
+  for (const { matcher, value } of getCodeEnergyIndicators()) {
     const matches = [...content.matchAll(matcher)];
 
     totalCodeEnergy += matches.length * value;
@@ -73,6 +67,12 @@ export const numSequentialLinesWithThresholdCodeEnergy = (threshold) => (
 };
 
 const detectCode = (content) => {
+  const {
+    complexMatchesToIgnore,
+    minSequentialLinesToMatch,
+    minTotalCodeEnergy,
+  } = sensitivityConfig;
+
   const { totalCodeEnergy, totalComplexMatches, lines } = getCodeEnergy(
     content
   );
@@ -96,8 +96,10 @@ export const detectUnformattedCode = (content) => {
   const strippedContent = stripIgnoredContent(content);
 
   return isBetween(
-    min_post_length_to_check,
-    max_post_length_to_check === -1 ? Infinity : max_post_length_to_check
+    settings.min_post_length_to_check,
+    settings.max_post_length_to_check === -1
+      ? Infinity
+      : settings.max_post_length_to_check
   )(content.length)
     ? detectCode(strippedContent)
     : false;
