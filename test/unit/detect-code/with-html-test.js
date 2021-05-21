@@ -1,24 +1,19 @@
-import { expectAll, defaultSettings } from "../utils";
+import { module } from "qunit";
+import { expectAll } from "../../helpers/utils";
 import {
   noCode,
   withUnformattedCode,
   withFormattedCode,
   withBareHTML,
   withFormattedHTML,
-} from "../fixtures/basic";
+} from "../../fixtures/basic";
+import { detectUnformattedCode } from "../../unformatted_code_detector/lib/detect-code";
 
-describe("With HTML", () => {
-  jest.resetModules();
-
-  global.settings = {
-    ...defaultSettings,
-    sensitivity: 1,
-    min_post_length_to_check: 0,
-  };
-
-  const {
-    detectUnformattedCode,
-  } = require("../../javascripts/unformatted_code_detector/lib/detect-code.js.es6");
+module("With HTML", ({ beforeEach }) => {
+  beforeEach(() => {
+    settings.sensitivity = 1;
+    settings.min_post_length_to_check = 0;
+  });
 
   expectAll(detectUnformattedCode, noCode, false);
   expectAll(detectUnformattedCode, withUnformattedCode, true);
