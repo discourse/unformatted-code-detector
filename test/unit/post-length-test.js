@@ -1,7 +1,7 @@
 import { expectAll } from "../helpers/utils";
 
 import { withUnformattedCode } from "../fixtures/basic";
-import { detectUnformattedCode } from "../unformatted_code_detector/lib/detect-code";
+import { detectUnformattedCode } from "../unformatted-code-detector/core/detect-code";
 import { module } from "qunit";
 
 module("ignore if too short", ({ beforeEach }) => {

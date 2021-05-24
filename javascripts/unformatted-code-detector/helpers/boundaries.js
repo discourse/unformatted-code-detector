@@ -3,7 +3,7 @@ export const getLineBoundaries = (str) => {
 
   let cursor = -1;
 
-  while (true) {
+  do {
     lineBoundaries.push({ start: cursor + 1 });
 
     cursor = str.indexOf("\n", cursor + 1);
@@ -15,11 +15,7 @@ export const getLineBoundaries = (str) => {
       lineBoundaries[lineBoundaries.length - 1].start,
       lineBoundaries[lineBoundaries.length - 1].end
     );
-
-    if (cursor === -1) {
-      break;
-    }
-  }
+  } while (cursor > -1);
 
   return lineBoundaries;
 };
