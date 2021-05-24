@@ -1,5 +1,3 @@
-const { include_html } = settings;
-
 const varNameStart = "[$_a-zA-Z]";
 const varNameEnd = "[$_a-zA-Z0-9]*";
 const varName = `${varNameStart}${varNameEnd}`;

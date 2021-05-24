@@ -7,7 +7,7 @@ import {
   withBareHTML,
   withFormattedHTML,
 } from "../../fixtures/basic";
-import { detectUnformattedCode } from "../../unformatted_code_detector/lib/detect-code";
+import { detectUnformattedCode } from "../../unformatted-code-detector/core/detect-code";
 
 module("With HTML", ({ beforeEach }) => {
   beforeEach(() => {

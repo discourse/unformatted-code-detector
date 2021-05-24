@@ -1,7 +1,7 @@
 import { module } from "qunit";
 import { expectAll } from "../../helpers/utils";
 import { withBareHTML } from "../../fixtures/basic";
-import { detectUnformattedCode } from "../../unformatted_code_detector/lib/detect-code";
+import { detectUnformattedCode } from "../../unformatted-code-detector/core/detect-code";
 
 module("Without HTML", ({ beforeEach }) => {
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import showModal from "discourse/lib/show-modal";
-import { detectUnformattedCode } from "../lib/detect-code";
+import { detectUnformattedCode } from "../core/detect-code";
 
 const getDisableAtTrustLevel = () =>
   settings.disable_at_trust_level === -1
@@ -13,7 +13,7 @@ const getDisableAtTrustLevel = () =>
 export default {
   name: "unformatted-code-detector",
   initialize() {
-    withPluginApi("0.8.7", (api) => {
+    withPluginApi("0.8.8", (api) => {
       api.modifyClass("model:composer", {
         ucd_shouldPermanentlyDismiss: false,
 
