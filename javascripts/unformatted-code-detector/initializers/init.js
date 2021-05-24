@@ -1,6 +1,12 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import showModal from "discourse/lib/show-modal";
 import { detectUnformattedCode } from "../core/detect-code";
+import { randomizeEmojiDiversity } from "../helpers/emoji-diversity";
+import { emojiUnescape } from "discourse/lib/text";
+import { htmlSafe } from "@ember/template";
+import { registerUnbound } from "discourse-common/lib/helpers";
+import I18n from "I18n";
+import { escape } from "pretty-text/sanitizer";
 
 const getDisableAtTrustLevel = () =>
   settings.disable_at_trust_level === -1
@@ -14,6 +20,15 @@ export default {
   name: "unformatted-code-detector",
   initialize() {
     withPluginApi("0.8.8", (api) => {
+      registerUnbound("ucd-modal-title", () => {
+        return htmlSafe(
+          [
+            emojiUnescape(escape(randomizeEmojiDiversity(settings.emoji_icon))),
+            escape(I18n.t(themePrefix("warning_modal.title"))),
+          ].join(" ")
+        );
+      });
+
       api.modifyClass("model:composer", {
         ucd_shouldPermanentlyDismiss: false,
 
