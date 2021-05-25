@@ -1,18 +1,17 @@
 en:
   warning_modal:
-    title: Unformatted Code Warning
+    title: Are you posting code?
     content: |
-      It looks like your post may contain unformatted code. To make it readable, make sure to wrap your code in backticks using the <kbd>`</kbd> key on your keyboard. (<a target="_blank" rel="noopener noreferrer" href="https://superuser.com/a/254077">Where?</a>)
+      It looks like your post may contain code or logs. To keep your post readable, please remember to **format your code** using the code toolbar button <kbd></></kbd>, or the backtick <kbd>`</kbd> key on your keyboard, like so:
 
-      **Single-line**: `` `like this` ``
+      `` `single line` ``
 
-      **Multiline**:
-      ````markdown
+      ````
       ```
-      like
-      this
+      multiple
+      lines
       ```
       ````
-    do_not_show_again: Don’t show this message again.
-    fix_post: Fix Code
+    do_not_show_again: don’t show this message again
+    fix_post: Edit Post
     ignore_and_post_anyway: Post Anyway
