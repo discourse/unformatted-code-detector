@@ -2,11 +2,11 @@ import { module, test } from "qunit";
 import {
   getCodeEnergy,
   numSequentialLinesWithThresholdCodeEnergy,
-} from "../unformatted-code-detector/core/detect-code";
+} from "../../unformatted-code-detector/core/detect-code";
 import {
   codeEnergyValues,
   CodeEnergyLevels,
-} from "../unformatted-code-detector/core/code-energy";
+} from "../../unformatted-code-detector/core/code-energy";
 
 module("sequential lines", ({ beforeEach }) => {
   beforeEach(() => {

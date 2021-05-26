@@ -1,5 +1,5 @@
 import { module, test } from "qunit";
-import { applySensitivity } from "../unformatted-code-detector/core/sensitivity";
+import { applySensitivity } from "../../unformatted-code-detector/core/sensitivity";
 
 module("apply sensitivity", () => {
   test("lowest sensitivity", (assert) => {
