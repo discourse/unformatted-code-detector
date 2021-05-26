@@ -1,0 +1,19 @@
+fr:
+  warning_modal:
+    title: Code détécté
+    content: |
+      Il semblerait que votre message contienne du code.
+
+      Pour assurer une meilleure lisibilité, merci de **formatter votre code** en utilisant le bouton code <kbd></></kbd> dans la barre d'outil du composeur, ou un accent grave <kbd>\`</kbd>, par exemple :
+
+      `` `une seule ligne` ``
+
+      ````
+      ```
+      plusieurs
+      lignes
+      ```
+      ````
+    do_not_show_again: ne plus afficher
+    fix_post: Modifier
+    ignore_and_post_anyway: Soumettre
