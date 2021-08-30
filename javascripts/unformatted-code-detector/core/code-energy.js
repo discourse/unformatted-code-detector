@@ -71,7 +71,9 @@ const _codeEnergyIndicators = {
   // multiple-character matches
   [CodeEnergyLevels.Complex]: {
     get indicators() {
-      return [nonHtmlIndicators, settings.include_html && htmlIndicators]
+      return [nonHtmlIndicators,
+              settings.include_extra_patterns && settings.custom_regex_strings.split("|"),
+              settings.include_html && htmlIndicators]
         .filter(Boolean)
         .flat();
     },

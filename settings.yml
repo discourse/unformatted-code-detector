@@ -25,6 +25,15 @@ max_post_length_to_check:
   min: -1
   description:
     en: Maximum post length to check (number of characters). -1 = no maximum.
+custom_regex_strings:
+  default: ^#!
+  type: list
+  description:
+    en: "Additional regex match strings to detect possible code fragments. CAUTION: These strings are evaluated directly with no syntax checking."
+include_extra_patterns:
+  default: false
+  description:
+    en: Enable custom regex pattern string matching.
 include_html:
   default: true
   description:
