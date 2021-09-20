@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import showModal from "discourse/lib/show-modal";
-import { detectUnformattedCode } from "../core/detect-code";
+import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
 import { randomizeEmojiDiversity } from "../helpers/emoji-diversity";
 import { emojiUnescape } from "discourse/lib/text";
 import { htmlSafe } from "@ember/template";
@@ -20,6 +20,17 @@ export default {
   name: "unformatted-code-detector",
   initialize() {
     withPluginApi("0.8.8", (api) => {
+      window.debugUnformattedCodeDetector = () => {
+        const content = document.querySelector(
+          "#reply-control textarea.d-editor-input"
+        )?.value;
+        if (!content) {
+          console.log("No content found");
+        } else {
+          printDebugInfo(content);
+        }
+      };
+
       registerUnbound("ucd-modal-title", () => {
         return htmlSafe(
           [
