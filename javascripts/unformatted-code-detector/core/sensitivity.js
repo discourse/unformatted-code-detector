@@ -1,7 +1,6 @@
-export const applySensitivity = (sensitivity) => (
-  leastSensitive,
-  mostSensitive
-) => leastSensitive + sensitivity * (mostSensitive - leastSensitive);
+export const applySensitivity =
+  (sensitivity) => (leastSensitive, mostSensitive) =>
+    leastSensitive + sensitivity * (mostSensitive - leastSensitive);
 
 export const sensitivityConfig = {
   get complexMatchesToIgnore() {
