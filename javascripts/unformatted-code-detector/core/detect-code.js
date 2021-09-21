@@ -49,21 +49,21 @@ export const getCodeEnergy = (content) => {
   return { totalCodeEnergy, totalComplexMatches, lines };
 };
 
-export const numSequentialLinesWithThresholdCodeEnergy = (threshold) => (
-  lines
-) => {
-  let maxContiguous = 0;
-  let curContiguous = 0;
+export const numSequentialLinesWithThresholdCodeEnergy =
+  (threshold) => (lines) => {
+    let maxContiguous = 0;
+    let curContiguous = 0;
 
-  for (const line of lines) {
-    // empty/whitespace-only lines don't affect contiguity
-    if (!line.content.trim().length) continue;
+    for (const line of lines) {
+      // empty/whitespace-only lines don't affect contiguity
+      if (!line.content.trim().length) continue;
 
-    if (line.matches >= threshold) {
-      ++curContiguous;
-    } else {
-      maxContiguous = Math.max(maxContiguous, curContiguous);
-      curContiguous = 0;
+      if (line.matches >= threshold) {
+        ++curContiguous;
+      } else {
+        maxContiguous = Math.max(maxContiguous, curContiguous);
+        curContiguous = 0;
+      }
     }
 
     return Math.max(maxContiguous, curContiguous);
@@ -133,9 +133,8 @@ const detectCode = (content) => {
     minTotalCodeEnergy,
   } = sensitivityConfig;
 
-  const { totalCodeEnergy, totalComplexMatches, lines } = getCodeEnergy(
-    content
-  );
+  const { totalCodeEnergy, totalComplexMatches, lines } =
+    getCodeEnergy(content);
 
   if (totalComplexMatches <= complexMatchesToIgnore) return false;
 
