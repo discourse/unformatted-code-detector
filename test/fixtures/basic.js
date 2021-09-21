@@ -49,6 +49,7 @@ export const noCode = [
   "That's Japanese. :stuck_out_tongue:\n\nFunny bug though.",
   "That's Japanese. :???:\n\nFunny bug though.",
   "That's Japanese. :!:\n\nFunny bug though.",
+  "Hey @some_username, how are you?",
 ];
 
 export const withUnformattedCode = [
