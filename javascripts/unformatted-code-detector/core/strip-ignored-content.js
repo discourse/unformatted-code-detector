@@ -23,8 +23,8 @@ const ignoredContents = [
   // markdown links and images
   /!?\[[^\]]+\]\([[^\)]+\)/g,
 
-  // mentions
-  /@(\w[\w.-]{0,58}[^\W_])|@(\w)/g,
+  // mentions (Prefixed by non-word and terminated at word boundary)
+  /\B@[\w][\w.-]{0,58}\b/g,
 ];
 
 export const stripIgnoredContent = (content) => {
