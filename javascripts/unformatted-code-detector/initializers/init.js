@@ -41,6 +41,7 @@ export default {
       });
 
       api.modifyClass("model:composer", {
+        pluginId: "unformatted-code-detector",
         ucd_shouldPermanentlyDismiss: false,
 
         ucd_checkPermanentlyDismissed: () =>
@@ -62,6 +63,7 @@ export default {
       });
 
       api.modifyClass("controller:composer", {
+        pluginId: "unformatted-code-detector",
         ucd_permanentlyDismiss() {
           localStorage.ucd_warningPermanentlyDismissed = "1";
         },
