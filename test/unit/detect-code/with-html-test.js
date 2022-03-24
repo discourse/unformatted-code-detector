@@ -2,10 +2,10 @@ import { module } from "qunit";
 import { expectAll } from "../../helpers/utils";
 import {
   noCode,
-  withUnformattedCode,
-  withFormattedCode,
   withBareHTML,
+  withFormattedCode,
   withFormattedHTML,
+  withUnformattedCode,
 } from "../../fixtures/basic";
 import { detectUnformattedCode } from "../../../unformatted-code-detector/core/detect-code";
 

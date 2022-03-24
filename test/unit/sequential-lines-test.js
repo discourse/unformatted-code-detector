@@ -4,8 +4,8 @@ import {
   numSequentialLinesWithThresholdCodeEnergy,
 } from "../../unformatted-code-detector/core/detect-code";
 import {
-  codeEnergyValues,
   CodeEnergyLevels,
+  codeEnergyValues,
 } from "../../unformatted-code-detector/core/code-energy";
 
 module("sequential lines", ({ beforeEach }) => {

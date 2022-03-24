@@ -25,6 +25,7 @@ export default {
           "#reply-control textarea.d-editor-input"
         )?.value;
         if (!content) {
+          // eslint-disable-next-line no-console
           console.log("No content found");
         } else {
           printDebugInfo(content);
@@ -48,7 +49,9 @@ export default {
           !!localStorage.ucd_warningPermanentlyDismissed,
 
         ucd_checkShouldIgnoreWarning() {
-          if (localStorage.ucd_forceShowWarning) return false;
+          if (localStorage.ucd_forceShowWarning) {
+            return false;
+          }
 
           return (
             this.ucd_previousWarningIgnored ||
