@@ -2,7 +2,7 @@ en:
   warning_modal:
     title: Are you posting code?
     content: |
-      It looks like your post may contain code or logs. To keep your post readable, please remember to **format your code** using the code toolbar button <kbd></></kbd>, or the backtick <kbd>`</kbd> key on your keyboard, like so:
+      It looks like your post may contain code or logs. To keep your post readable, please remember to **format your code** using the *Preformatted text* toolbar button <kbd></></kbd>, or the backtick <kbd>`</kbd> key on your keyboard, like so:
 
       `` `single line` ``
 
@@ -12,6 +12,6 @@ en:
       lines
       ```
       ````
-    do_not_show_again: don’t show this message again
+    do_not_show_again: do not show this message again
     fix_post: Edit Post
     ignore_and_post_anyway: Post Anyway
