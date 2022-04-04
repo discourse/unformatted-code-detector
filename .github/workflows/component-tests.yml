@@ -20,7 +20,7 @@ jobs:
     env:
       DISCOURSE_HOSTNAME: www.example.com
       RUBY_GLOBAL_METHOD_CACHE_SIZE: 131072
-      RAILS_ENV: development
+      RAILS_ENV: production
       PGUSER: discourse
       PGPASSWORD: discourse
 
@@ -136,12 +136,12 @@ jobs:
         if: matrix.build_type == 'frontend-legacy' && steps.check_qunit.outputs.files_exist == 'true'
         run: |
           bundle exec rake themes:install -- '--{"${{ github.event.repository.name }}": "tmp/component"}'
-          QUNIT_EMBER_CLI=0 UNICORN_TIMEOUT=120 bundle exec rake themes:qunit[name,${{ github.event.repository.name }}]
+          QUNIT_RAILS_ENV=production QUNIT_EMBER_CLI=0 UNICORN_TIMEOUT=120 bundle exec rake themes:qunit[name,${{ github.event.repository.name }}]
         timeout-minutes: 10
 
       - name: Component QUnit (Ember CLI)
         if: matrix.build_type == 'frontend' && steps.check_qunit.outputs.files_exist == 'true'
         run: |
           bundle exec rake themes:install -- '--{"${{ github.event.repository.name }}": "tmp/component"}'
-          QUNIT_EMBER_CLI=1 UNICORN_TIMEOUT=120 bundle exec rake themes:qunit[name,${{ github.event.repository.name }}]
+          QUNIT_RAILS_ENV=production QUNIT_EMBER_CLI=1 UNICORN_TIMEOUT=120 bundle exec rake themes:qunit[name,${{ github.event.repository.name }}]
         timeout-minutes: 10
