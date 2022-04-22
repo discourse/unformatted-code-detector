@@ -10,7 +10,7 @@ const toSingleLine = (str) => truncate(35)(str).replaceAll("\n", "\\n");
 
 export const expectAll = (fn, tests, expected) => {
   tests.forEach((t) => {
-    test(toSingleLine(t.toString()), (assert) => {
+    test(toSingleLine(t.toString()), function (assert) {
       assert.strictEqual(fn(t), expected);
     });
   });
