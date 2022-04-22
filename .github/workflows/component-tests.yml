@@ -14,8 +14,8 @@ jobs:
   build:
     name: ${{ matrix.build_type }}
     runs-on: ubuntu-latest
-    container: discourse/discourse_test:slim${{ startsWith(matrix.build_type, 'frontend') && '-browsers' || '' }}
-    timeout-minutes: 20
+    container: discourse/discourse_test:slim-browsers
+    timeout-minutes: 15
 
     env:
       DISCOURSE_HOSTNAME: www.example.com
