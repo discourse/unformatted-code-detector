@@ -9,6 +9,6 @@
     "test": "./scripts/watch-tests.sh"
   },
   "devDependencies": {
-    "eslint-config-discourse": "^3.0.0"
+    "eslint-config-discourse": "^3.1.0"
   }
 }
