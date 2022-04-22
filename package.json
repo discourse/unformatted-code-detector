@@ -1,6 +1,14 @@
 {
+  "name": "unformatted-code-detector",
+  "version": "0.11",
+  "repository": "https://github.com/discourse/unformatted-code-detector",
+  "author": "Lionel Rowe",
+  "license": "MIT",
   "scripts": {
     "discourse": "discourse_theme watch .",
     "test": "./scripts/watch-tests.sh"
+  },
+  "devDependencies": {
+    "eslint-config-discourse": "^3.1.0"
   }
 }

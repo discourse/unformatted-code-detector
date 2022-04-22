@@ -38,11 +38,11 @@ const emojiRegexes = Object.keys(Object.values(genderEmojiData)[0]).reduce(
   {}
 );
 
-export const randomizeEmojiGender = (emoji) =>
+export const randomizeEmojiGender = (emojis) =>
   Object.entries(emojiRegexes).reduce(
     (emoji, [subStrType, regex]) =>
       emoji.replace(regex, () => randomGenderEmojiData()[subStrType]),
-    emoji
+    emojis
   );
 
 const MIN_SKIN_TONE_CODEPOINT = 0x1f3fb;

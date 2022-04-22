@@ -1,9 +1,9 @@
 import { getLineBoundaries, isBetween } from "../helpers/boundaries";
 import { stripIgnoredContent } from "./strip-ignored-content";
 import {
-  getCodeEnergyIndicators,
   CodeEnergyLevels,
   codeEnergyValues,
+  getCodeEnergyIndicators,
 } from "./code-energy";
 import { sensitivityConfig } from "./sensitivity";
 
@@ -56,7 +56,9 @@ export const numSequentialLinesWithThresholdCodeEnergy =
 
     for (const line of lines) {
       // empty/whitespace-only lines don't affect contiguity
-      if (!line.content.trim().length) continue;
+      if (!line.content.trim().length) {
+        continue;
+      }
 
       if (line.matches >= threshold) {
         ++curContiguous;
@@ -85,7 +87,9 @@ export const printDebugInfo = (content) => {
 
   let consecutive = 0;
   lines.forEach((l) => {
-    if (!l.content.trim()) return;
+    if (!l.content.trim()) {
+      return;
+    }
     if (l.matches) {
       consecutive++;
     } else {
@@ -116,9 +120,12 @@ export const printDebugInfo = (content) => {
 
   debugTable.unshift(columns, dividers);
 
+  // eslint-disable-next-line no-console
   console.log(debugTable.map((l) => `| ${l.join(" | ")} |`).join("\n"));
 
+  // eslint-disable-next-line no-console
   console.log("Result is ", { totalCodeEnergy, totalComplexMatches, lines });
+  // eslint-disable-next-line no-console
   console.log("Sensitivity Config is ", {
     complexMatchesToIgnore,
     minSequentialLinesToMatch,
@@ -136,9 +143,13 @@ const detectCode = (content) => {
   const { totalCodeEnergy, totalComplexMatches, lines } =
     getCodeEnergy(content);
 
-  if (totalComplexMatches <= complexMatchesToIgnore) return false;
+  if (totalComplexMatches <= complexMatchesToIgnore) {
+    return false;
+  }
 
-  if (totalCodeEnergy < minTotalCodeEnergy) return false;
+  if (totalCodeEnergy < minTotalCodeEnergy) {
+    return false;
+  }
 
   if (
     numSequentialLinesWithThresholdCodeEnergy(
