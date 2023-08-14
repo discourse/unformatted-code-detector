@@ -1,5 +1,4 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import showModal from "discourse/lib/show-modal";
 import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
 import { randomizeEmojiDiversity } from "../lib/emoji-diversity";
 import { emojiUnescape } from "discourse/lib/text";
