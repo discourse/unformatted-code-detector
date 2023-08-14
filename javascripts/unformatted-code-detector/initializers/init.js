@@ -1,20 +1,19 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import showModal from "discourse/lib/show-modal";
 import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
-import { randomizeEmojiDiversity } from "../helpers/emoji-diversity";
+import { randomizeEmojiDiversity } from "../lib/emoji-diversity";
 import { emojiUnescape } from "discourse/lib/text";
 import { htmlSafe } from "@ember/template";
 import { registerUnbound } from "discourse-common/lib/helpers";
 import I18n from "I18n";
 import { escape } from "pretty-text/sanitizer";
+import ModalUcdWarning from "../../components/modal/ucd-warning";
+import { inject as service } from "@ember/service";
 
 const getDisableAtTrustLevel = () =>
   settings.disable_at_trust_level === -1
     ? Infinity
     : settings.disable_at_trust_level;
-
-// for testing/debugging:
-// localStorage.ucd_forceShowWarning = '1'
 
 export default {
   name: "unformatted-code-detector",
@@ -32,7 +31,7 @@ export default {
         }
       };
 
-      registerUnbound("ucd-modal-title", () => {
+      registerUnbound("modal-ucd-title", () => {
         return htmlSafe(
           [
             emojiUnescape(escape(randomizeEmojiDiversity(settings.emoji_icon))),
@@ -42,21 +41,15 @@ export default {
       });
 
       api.modifyClass("model:composer", {
+        ucdState: service("ucd-state"),
         pluginId: "unformatted-code-detector",
-        ucd_shouldPermanentlyDismiss: false,
-
-        ucd_checkPermanentlyDismissed: () =>
-          !!localStorage.ucd_warningPermanentlyDismissed,
+        ucd_previousWarningIgnored: false,
 
         ucd_checkShouldIgnoreWarning() {
-          if (localStorage.ucd_forceShowWarning) {
-            return false;
-          }
-
           return (
             this.ucd_previousWarningIgnored ||
-            this.ucd_checkPermanentlyDismissed() ||
-            api.getCurrentUser().trust_level >= getDisableAtTrustLevel()
+            this.ucdState.permanentlyDismissed ||
+            api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
           );
         },
 
@@ -67,39 +60,15 @@ export default {
 
       api.modifyClass("controller:composer", {
         pluginId: "unformatted-code-detector",
-        ucd_permanentlyDismiss() {
-          localStorage.ucd_warningPermanentlyDismissed = "1";
-        },
-
-        ucd_closeModal() {
-          if (this.model.ucd_shouldPermanentlyDismiss) {
-            this.ucd_permanentlyDismiss();
-          }
-
-          this.send("closeModal");
-        },
 
         save(...args) {
-          const model = this.model;
-          const _this = this;
-          const _super = this._super;
-
           if (
-            model.ucd_checkUnformattedCodeDetected() &&
-            !model.ucd_checkShouldIgnoreWarning()
+            this.model.ucd_checkUnformattedCodeDetected() &&
+            !this.model.ucd_checkShouldIgnoreWarning()
           ) {
-            const warningModal = showModal("ucdWarningModal", {
-              modalClass: "ucd_warning-modal",
-              model,
+            this.modal.show(ModalUcdWarning, {
+              model: this.model,
             });
-
-            warningModal.actions.ignoreAndProceed = () => {
-              _this.ucd_closeModal.call(_this);
-              _super.call(_this, ...args);
-            };
-
-            warningModal.actions.goBackAndFix = () =>
-              _this.ucd_closeModal.call(_this);
           } else {
             this._super(...args);
           }
