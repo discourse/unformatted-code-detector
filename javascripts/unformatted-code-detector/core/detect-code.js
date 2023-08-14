@@ -1,4 +1,4 @@
-import { getLineBoundaries, isBetween } from "../helpers/boundaries";
+import { getLineBoundaries, isBetween } from "../lib/boundaries";
 import { stripIgnoredContent } from "./strip-ignored-content";
 import {
   CodeEnergyLevels,

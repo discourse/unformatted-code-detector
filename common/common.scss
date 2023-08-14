@@ -1,6 +1,6 @@
 $spacer: 15px;
 
-.ucd_warning-modal {
+.modal-ucd-warning {
   .modal-body {
     padding: 0 $spacer;
   }
@@ -13,6 +13,7 @@ $spacer: 15px;
 
   .action-buttons {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin: $spacer 0;
   }
