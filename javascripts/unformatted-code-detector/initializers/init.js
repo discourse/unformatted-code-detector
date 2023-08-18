@@ -6,7 +6,7 @@ import { htmlSafe } from "@ember/template";
 import { registerUnbound } from "discourse-common/lib/helpers";
 import I18n from "I18n";
 import { escape } from "pretty-text/sanitizer";
-import ModalUcdWarning from "../../components/modal/ucd-warning";
+import ModalUcdWarning from "../../discourse/components/modal/ucd-warning";
 import { inject as service } from "@ember/service";
 
 const getDisableAtTrustLevel = () =>
