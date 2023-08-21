@@ -1,8 +1,7 @@
-import { expectAll } from "../helpers/utils";
-
-import { withUnformattedCode } from "../fixtures/basic";
-import { detectUnformattedCode } from "../../unformatted-code-detector/core/detect-code";
 import { module } from "qunit";
+import { expectAll } from "../helpers/utils";
+import { withUnformattedCode } from "../fixtures/basic";
+import { detectUnformattedCode } from "../../discourse/core/detect-code";
 
 module("ignore if too short", function (hooks) {
   hooks.beforeEach(function () {

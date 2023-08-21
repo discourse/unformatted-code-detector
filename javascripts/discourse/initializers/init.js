@@ -1,12 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
-import { randomizeEmojiDiversity } from "../lib/emoji-diversity";
-import { emojiUnescape } from "discourse/lib/text";
-import { htmlSafe } from "@ember/template";
-import { registerUnbound } from "discourse-common/lib/helpers";
-import I18n from "I18n";
-import { escape } from "pretty-text/sanitizer";
-import ModalUcdWarning from "../../discourse/components/modal/ucd-warning";
+import ModalUcdWarning from "../components/modal/ucd-warning";
 import { inject as service } from "@ember/service";
 
 const getDisableAtTrustLevel = () =>
@@ -29,15 +23,6 @@ export default {
           printDebugInfo(content);
         }
       };
-
-      registerUnbound("modal-ucd-title", () => {
-        return htmlSafe(
-          [
-            emojiUnescape(escape(randomizeEmojiDiversity(settings.emoji_icon))),
-            escape(I18n.t(themePrefix("warning_modal.title"))),
-          ].join(" ")
-        );
-      });
 
       api.modifyClass("model:composer", {
         ucdState: service("ucd-state"),
