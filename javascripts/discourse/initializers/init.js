@@ -1,6 +1,6 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
-import ModalUcdWarning from "../../discourse/components/modal/ucd-warning";
+import ModalUcdWarning from "../components/modal/ucd-warning";
 import { inject as service } from "@ember/service";
 
 const getDisableAtTrustLevel = () =>
