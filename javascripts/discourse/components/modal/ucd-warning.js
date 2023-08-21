@@ -5,7 +5,7 @@ import { htmlSafe } from "@ember/template";
 import I18n from "I18n";
 import { emojiUnescape } from "discourse/lib/text";
 import { escape } from "pretty-text/sanitizer";
-import { randomizeEmojiDiversity } from "../lib/emoji-diversity";
+import { randomizeEmojiDiversity } from "../../lib/emoji-diversity";
 
 export default class ModalUcdWarning extends Component {
   @service ucdState;
