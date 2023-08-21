@@ -7,7 +7,7 @@ import {
   withFormattedHTML,
   withUnformattedCode,
 } from "../../fixtures/basic";
-import { detectUnformattedCode } from "../../../unformatted-code-detector/core/detect-code";
+import { detectUnformattedCode } from "../../../discourse/core/detect-code";
 
 module("With HTML", function (hooks) {
   hooks.beforeEach(function () {

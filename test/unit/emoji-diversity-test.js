@@ -1,5 +1,5 @@
 import { module, test } from "qunit";
-import { randomizeEmojiGender } from "../../unformatted-code-detector/lib/emoji-diversity";
+import { randomizeEmojiGender } from "../../discourse/lib/emoji-diversity";
 
 const originalMathRandom = Math.random;
 
