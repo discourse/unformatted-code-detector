@@ -1,5 +1,5 @@
 import { module } from "qunit";
-import { expectAll } from "../../helpers/utils";
+import { detectUnformattedCode } from "../../../discourse/core/detect-code";
 import {
   noCode,
   withBareHTML,
@@ -7,7 +7,7 @@ import {
   withFormattedHTML,
   withUnformattedCode,
 } from "../../fixtures/basic";
-import { detectUnformattedCode } from "../../../discourse/core/detect-code";
+import { expectAll } from "../../helpers/utils";
 
 module("With HTML", function (hooks) {
   hooks.beforeEach(function () {

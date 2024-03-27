@@ -1,10 +1,10 @@
 import Component from "@glimmer/component";
-import { inject as service } from "@ember/service";
 import { action } from "@ember/object";
+import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
-import I18n from "I18n";
-import { emojiUnescape } from "discourse/lib/text";
 import { escape } from "pretty-text/sanitizer";
+import { emojiUnescape } from "discourse/lib/text";
+import I18n from "I18n";
 import { randomizeEmojiDiversity } from "../../lib/emoji-diversity";
 
 export default class ModalUcdWarning extends Component {
