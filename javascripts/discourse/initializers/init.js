@@ -1,7 +1,7 @@
+import { service } from "@ember/service";
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
 import ModalUcdWarning from "../components/modal/ucd-warning";
-import { inject as service } from "@ember/service";
+import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
 
 const getDisableAtTrustLevel = () =>
   settings.disable_at_trust_level === -1

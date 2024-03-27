@@ -1,5 +1,5 @@
-import KeyValueStore from "discourse/lib/key-value-store";
 import Service from "@ember/service";
+import KeyValueStore from "discourse/lib/key-value-store";
 
 const DISMISSED = "permanently_dismissed";
 const NAMESPACE = "ucd_";

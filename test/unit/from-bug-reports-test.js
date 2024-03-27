@@ -1,7 +1,7 @@
 import { module } from "qunit";
-import { expectAll } from "../helpers/utils";
-import { falseNegatives, falsePositives } from "../fixtures/bug-reports";
 import { detectUnformattedCode } from "../../discourse/core/detect-code";
+import { falseNegatives, falsePositives } from "../fixtures/bug-reports";
+import { expectAll } from "../helpers/utils";
 
 module("bug reports", function () {
   expectAll(detectUnformattedCode, falseNegatives, true);

@@ -1,7 +1,7 @@
 import { module } from "qunit";
-import { expectAll } from "../../helpers/utils";
-import { withBareHTML } from "../../fixtures/basic";
 import { detectUnformattedCode } from "../../../discourse/core/detect-code";
+import { withBareHTML } from "../../fixtures/basic";
+import { expectAll } from "../../helpers/utils";
 
 module("Without HTML", function (hooks) {
   hooks.beforeEach(function () {

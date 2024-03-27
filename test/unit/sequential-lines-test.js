@@ -1,12 +1,12 @@
 import { module, test } from "qunit";
 import {
-  getCodeEnergy,
-  numSequentialLinesWithThresholdCodeEnergy,
-} from "../../discourse/core/detect-code";
-import {
   CodeEnergyLevels,
   codeEnergyValues,
 } from "../../discourse/core/code-energy";
+import {
+  getCodeEnergy,
+  numSequentialLinesWithThresholdCodeEnergy,
+} from "../../discourse/core/detect-code";
 
 module("sequential lines", function (hooks) {
   hooks.beforeEach(function () {
