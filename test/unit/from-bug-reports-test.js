@@ -3,7 +3,7 @@ import { detectUnformattedCode } from "../../discourse/core/detect-code";
 import { falseNegatives, falsePositives } from "../fixtures/bug-reports";
 import { expectAll } from "../helpers/utils";
 
-module("bug reports", function () {
+module("Unformatted Code Detector | bug reports", function () {
   expectAll(detectUnformattedCode, falseNegatives, true);
   expectAll(detectUnformattedCode, falsePositives, false);
 });
