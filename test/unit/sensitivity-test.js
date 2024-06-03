@@ -1,7 +1,7 @@
 import { module, test } from "qunit";
 import { applySensitivity } from "../../discourse/core/sensitivity";
 
-module("apply sensitivity", function () {
+module("Unformatted Code Detector | apply sensitivity", function () {
   test("lowest sensitivity", function (assert) {
     assert.strictEqual(applySensitivity(0)(1, 10), 1);
   });
