@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 de:
+  warning_modal:
+    title: Postest du Code?
+    content: |
+      Es sieht so aus, als würde dein Beitrag Code oder Fehlerprotokolle enthalten. Damit dein Beitrag lesbar bleibt, vergiss bitte nicht, deinen Code zu **formatieren**, indem du die Schaltfläche *Vorformatierter Text* in der Symbolleiste <kbd></></kbd> oder die Rückschritttaste <kbd>`</kbd> auf deiner Tastatur benutzt, etwa so:
+
+      `` ``Einzelne Zeile``
+
+      ````
+      ```
+      mehrere
+      Zeilen
+      ```
+      ````
+    do_not_show_again: diese Meldung nicht mehr anzeigen
+    fix_post: Beitrag bearbeiten
+    ignore_and_post_anyway: Trotzdem posten
