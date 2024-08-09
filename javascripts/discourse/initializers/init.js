@@ -24,23 +24,27 @@ export default {
         }
       };
 
-      api.modifyClass("model:composer", {
-        ucdState: service("ucd-state"),
-        pluginId: "unformatted-code-detector",
-        ucd_previousWarningIgnored: false,
+      api.modifyClass(
+        "model:composer",
+        (Superclass) =>
+          class extends Superclass {
+            @service ucdState;
 
-        ucd_checkShouldIgnoreWarning() {
-          return (
-            this.ucd_previousWarningIgnored ||
-            this.ucdState.permanentlyDismissed ||
-            api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
-          );
-        },
+            ucd_previousWarningIgnored = false;
 
-        ucd_checkUnformattedCodeDetected() {
-          return detectUnformattedCode(this.reply);
-        },
-      });
+            ucd_checkShouldIgnoreWarning() {
+              return (
+                this.ucd_previousWarningIgnored ||
+                this.ucdState.permanentlyDismissed ||
+                api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
+              );
+            }
+
+            ucd_checkUnformattedCodeDetected() {
+              return detectUnformattedCode(this.reply);
+            }
+          }
+      );
 
       api.modifyClass(
         "controller:composer",
