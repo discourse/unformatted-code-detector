@@ -42,22 +42,24 @@ export default {
         },
       });
 
-      api.modifyClass("controller:composer", {
-        pluginId: "unformatted-code-detector",
-
-        save(...args) {
-          if (
-            this.model.ucd_checkUnformattedCodeDetected() &&
-            !this.model.ucd_checkShouldIgnoreWarning()
-          ) {
-            this.modal.show(ModalUcdWarning, {
-              model: this.model,
-            });
-          } else {
-            this._super(...args);
+      api.modifyClass(
+        "controller:composer",
+        (Superclass) =>
+          class extends Superclass {
+            save(...args) {
+              if (
+                this.model.ucd_checkUnformattedCodeDetected() &&
+                !this.model.ucd_checkShouldIgnoreWarning()
+              ) {
+                this.modal.show(ModalUcdWarning, {
+                  model: this.model,
+                });
+              } else {
+                super.save(...args);
+              }
+            }
           }
-        },
-      });
+      );
     });
   },
 };
