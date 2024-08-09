@@ -47,7 +47,7 @@ export default {
       );
 
       api.modifyClass(
-        "controller:composer",
+        "service:composer",
         (Superclass) =>
           class extends Superclass {
             save(...args) {
