@@ -24,40 +24,46 @@ export default {
         }
       };
 
-      api.modifyClass("model:composer", {
-        ucdState: service("ucd-state"),
-        pluginId: "unformatted-code-detector",
-        ucd_previousWarningIgnored: false,
+      api.modifyClass(
+        "model:composer",
+        (Superclass) =>
+          class extends Superclass {
+            @service ucdState;
 
-        ucd_checkShouldIgnoreWarning() {
-          return (
-            this.ucd_previousWarningIgnored ||
-            this.ucdState.permanentlyDismissed ||
-            api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
-          );
-        },
+            ucd_previousWarningIgnored = false;
 
-        ucd_checkUnformattedCodeDetected() {
-          return detectUnformattedCode(this.reply);
-        },
-      });
+            ucd_checkShouldIgnoreWarning() {
+              return (
+                this.ucd_previousWarningIgnored ||
+                this.ucdState.permanentlyDismissed ||
+                api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
+              );
+            }
 
-      api.modifyClass("controller:composer", {
-        pluginId: "unformatted-code-detector",
-
-        save(...args) {
-          if (
-            this.model.ucd_checkUnformattedCodeDetected() &&
-            !this.model.ucd_checkShouldIgnoreWarning()
-          ) {
-            this.modal.show(ModalUcdWarning, {
-              model: this.model,
-            });
-          } else {
-            this._super(...args);
+            ucd_checkUnformattedCodeDetected() {
+              return detectUnformattedCode(this.reply);
+            }
           }
-        },
-      });
+      );
+
+      api.modifyClass(
+        "service:composer",
+        (Superclass) =>
+          class extends Superclass {
+            save(...args) {
+              if (
+                this.model.ucd_checkUnformattedCodeDetected() &&
+                !this.model.ucd_checkShouldIgnoreWarning()
+              ) {
+                this.modal.show(ModalUcdWarning, {
+                  model: this.model,
+                });
+              } else {
+                super.save(...args);
+              }
+            }
+          }
+      );
     });
   },
 };
