@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 fi:
+  warning_modal:
+    title: Oletko kirjoittamassa koodia?
+    content: |
+      Näyttää siltä, että viestisi saattaa sisältää koodia tai lokeja. Jotta viestisi pysyy luettavana, muista **muotoilla koodisi** käyttämällä työkalupalkin *Teksti ilman muotoiluja* -painiketta <kbd></></kbd> tai näppäimistön gravismerkkiä <kbd>`</kbd> , kuten näin:
+
+      `` `yksi rivi` ``
+
+      ````
+      ```
+      useita
+      rivejä
+      ```
+      ````
+    do_not_show_again: älä näytä tätä viestiä uudelleen
+    fix_post: Muokkaa viestiä
+    ignore_and_post_anyway: Julkaise joka tapauksessa

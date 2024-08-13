@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 it:
+  warning_modal:
+    title: Stai pubblicando codice?
+    content: |
+      Sembra che il tuo post contenga codice o log. Per mantenere il tuo post leggibile, ricordati di **formattare il tuo codice** usando il pulsante della barra degli strumenti *Testo preformattato* <kbd></></kbd>, oppure il carattere backtick <kbd>`</kbd> in questo modo:
+
+      `` `riga singola` ``
+
+      ````
+      ```
+      più
+      righe
+      ```
+      ````
+    do_not_show_again: non mostrare più questo messaggio
+    fix_post: Modifica messaggio
+    ignore_and_post_anyway: Pubblica comunque

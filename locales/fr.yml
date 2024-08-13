@@ -6,13 +6,11 @@
 
 fr:
   warning_modal:
-    title: Code détécté
+    title: Publiez-vous du code ?
     content: |
-      Il semblerait que votre message contienne du code.
+      Il semble que votre publication contient du code ou des journaux. Pour que votre publication reste lisible, n'oubliez pas de **formater votre code** à l'aide du bouton *Texte préformaté* de la barre d'outils <kbd></></kbd> ou de la touche backtick <kbd>`</kbd> de votre clavier, comme suit :
 
-      Pour assurer une meilleure lisibilité, merci de **formatter votre code** en utilisant le bouton code <kbd></></kbd> dans la barre d'outil du composeur, ou un accent grave <kbd>\`</kbd>, par exemple :
-
-      `` `une seule ligne` ``
+      ```ligne unique```
 
       ````
       ```
@@ -20,6 +18,6 @@ fr:
       lignes
       ```
       ````
-    do_not_show_again: ne plus afficher
-    fix_post: Modifier
-    ignore_and_post_anyway: Soumettre
+    do_not_show_again: ne plus afficher ce message
+    fix_post: Modifier la publication
+    ignore_and_post_anyway: Publier quand même

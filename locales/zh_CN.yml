@@ -6,19 +6,17 @@
 
 zh_CN:
   warning_modal:
-    title: 未格式化代码警告
+    title: 您是否在发布代码？
     content: |
-      您的贴子里可能存在尚未格式化的代码。为了使它易读，请使用键盘的 <kbd>`</kbd> 键把代码包在反引号里面。（<a target="_blank" rel="noopener noreferrer" href="https://superuser.com/a/254077">在哪？</a>)
+      您的帖子中似乎包含代码或日志。为了让帖子易于阅读，请记得使用 *预格式化文本* 工具栏按钮 <kbd></></kbd> 或键盘上的反引号 <kbd>`</kbd> 键**设置您的代码的格式**，如下所示：
 
-      **单行**: `` `如此` ``
+      `` `单行` ``
 
-      **多行**:
-      ````markdown
+      ````
       ```
-      如
-      此
+      多行
       ```
       ````
-    do_not_show_again: 下次不再提示
-    fix_post: 返回修改贴子
-    ignore_and_post_anyway: 还是继续发贴
+    do_not_show_again: 不再显示此消息
+    fix_post: 编辑帖子
+    ignore_and_post_anyway: 仍然发帖
