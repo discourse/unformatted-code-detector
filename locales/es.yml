@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 es:
+  warning_modal:
+    title: '¿Estas publicando código?'
+    content: |
+      Parece que tu publicación puede contener código o registros. Para que tu publicación sea legible, recuerda **formatear tu código** utilizando el botón de la barra de herramientas *Texto preformateado* <kbd></></kbd>, o la tecla de retroceso <kbd>`</kbd> de tu teclado, de esta forma
+
+      `` `línea única` ``
+
+      ````
+      ```
+      varias
+      líneas
+      ```
+      ````
+    do_not_show_again: no volver a mostrar este mensaje
+    fix_post: Editar publicación
+    ignore_and_post_anyway: Publicar de todos modos

@@ -10,7 +10,7 @@ de:
     content: |
       Es sieht so aus, als würde dein Beitrag Code oder Fehlerprotokolle enthalten. Damit dein Beitrag lesbar bleibt, vergiss bitte nicht, deinen Code zu **formatieren**, indem du die Schaltfläche *Vorformatierter Text* in der Symbolleiste <kbd></></kbd> oder die Rückschritttaste <kbd>`</kbd> auf deiner Tastatur benutzt, etwa so:
 
-      `` ``Einzelne Zeile``
+      `` `einzelne Zeile` ``
 
       ````
       ```
