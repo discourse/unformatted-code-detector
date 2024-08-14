@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 ja:
+  warning_modal:
+    title: コードを投稿しようとしていますか？
+    content: |
+      投稿にはコードまたはログが含まれるようです。投稿の可読性を維持するには、*整形済みテキスト*ツールバーボタン <kbd></></kbd> を使用するか、以下のようにキーボードで逆引用符 <kbd>`</kbd> キーを押して**コードをフォーマット**してください。
+
+      `` `単一行` ``
+
+      ````
+      ```
+      複数
+      行
+      ```
+      ````
+    do_not_show_again: 今後このメッセージを表示しない
+    fix_post: 投稿を編集
+    ignore_and_post_anyway: このまま投稿する
