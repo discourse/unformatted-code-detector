@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 nl:
+  warning_modal:
+    title: Plaats je code?
+    content: |
+      Het lijkt erop dat je bericht code of logs bevat. Houd je bericht leesbaar, dus denk eraan om **je code op te maken** met de werkbalkknop *Vooraf opgemaakte tekst* <kbd></></kbd> of de backtick (accent grave) <kbd>`</kbd> op je toetsenbord, op deze manier:
+
+      `` `één regel` ``
+
+      ````
+      ```
+      meerdere
+      regels
+      ```
+      ````
+    do_not_show_again: dit bericht niet meer weergeven
+    fix_post: Bericht bewerken
+    ignore_and_post_anyway: Toch plaatsen

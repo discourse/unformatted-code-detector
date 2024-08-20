@@ -5,3 +5,19 @@
 # https://translate.discourse.org/
 
 pt_BR:
+  warning_modal:
+    title: Está postando um código?
+    content: |
+      Parece que sua postagem contém códigos ou registros. Para a postagem permanecer legível, não se esqueça de **formatar o código** usando o botão *Texto pré-formatado* na barra de ferramentas<kbd></></kbd>, ou a tecla de acento grave <kbd>`</kbd> no seu teclado, conforme a seguir:
+
+      `` `linha única` ``
+
+      ````
+      ```
+      várias
+      linhas
+      ```
+      ````
+    do_not_show_again: não exibir esta mensagem novamente
+    fix_post: Editar postagem
+    ignore_and_post_anyway: Postar mesmo assim
