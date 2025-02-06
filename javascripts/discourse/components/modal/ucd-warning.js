@@ -4,7 +4,7 @@ import { service } from "@ember/service";
 import { htmlSafe } from "@ember/template";
 import { escape } from "pretty-text/sanitizer";
 import { emojiUnescape } from "discourse/lib/text";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 import { randomizeEmojiDiversity } from "../../lib/emoji-diversity";
 
 export default class ModalUcdWarning extends Component {
@@ -14,7 +14,7 @@ export default class ModalUcdWarning extends Component {
     return htmlSafe(
       [
         emojiUnescape(escape(randomizeEmojiDiversity(settings.emoji_icon))),
-        escape(I18n.t(themePrefix("warning_modal.title"))),
+        escape(i18n(themePrefix("warning_modal.title"))),
       ].join(" ")
     );
   }
