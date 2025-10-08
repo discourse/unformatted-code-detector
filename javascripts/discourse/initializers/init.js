@@ -11,7 +11,7 @@ const getDisableAtTrustLevel = () =>
 export default {
   name: "unformatted-code-detector",
   initialize() {
-    withPluginApi("0.8.8", (api) => {
+    withPluginApi((api) => {
       window.debugUnformattedCodeDetector = () => {
         const content = document.querySelector(
           "#reply-control textarea.d-editor-input"
