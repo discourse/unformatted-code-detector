@@ -1,4 +1,4 @@
-import { service } from "@ember/service";
+import { getOwner } from "@ember/owner";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import ModalUcdWarning from "../components/modal/ucd-warning";
 import { detectUnformattedCode, printDebugInfo } from "../core/detect-code";
@@ -24,26 +24,32 @@ export default {
         }
       };
 
-      api.modifyClass(
-        "model:composer",
-        (Superclass) =>
-          class extends Superclass {
-            @service ucdState;
+      api.addModelGetter("composer", "ucdState", function () {
+        return getOwner(this).lookup("service:ucd-state");
+      });
 
-            ucd_previousWarningIgnored = false;
+      api.addModelField("composer", "ucd_previousWarningIgnored", {
+        defaultValue: false,
+      });
 
-            ucd_checkShouldIgnoreWarning() {
-              return (
-                this.ucd_previousWarningIgnored ||
-                this.ucdState.permanentlyDismissed ||
-                api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
-              );
-            }
+      api.addModelMethod(
+        "composer",
+        "ucd_checkShouldIgnoreWarning",
+        function () {
+          return (
+            this.ucd_previousWarningIgnored ||
+            this.ucdState.permanentlyDismissed ||
+            api.getCurrentUser()?.trust_level >= getDisableAtTrustLevel()
+          );
+        }
+      );
 
-            ucd_checkUnformattedCodeDetected() {
-              return detectUnformattedCode(this.reply);
-            }
-          }
+      api.addModelMethod(
+        "composer",
+        "ucd_checkUnformattedCodeDetected",
+        function () {
+          return detectUnformattedCode(this.reply);
+        }
       );
 
       api.modifyClass(
