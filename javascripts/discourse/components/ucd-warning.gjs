@@ -55,6 +55,7 @@ export default class UcdWarning extends Component {
         @label={{themePrefix "warning_modal.fix_post"}}
       />
       <DButton
+        class="btn-default"
         @action={{this.ignoreAndProceed}}
         @label={{themePrefix "warning_modal.ignore_and_post_anyway"}}
       />
