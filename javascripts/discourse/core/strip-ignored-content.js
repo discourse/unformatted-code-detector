@@ -21,7 +21,7 @@ const ignoredContents = [
   /\((?:c|tm|r)\)/gi, // copy/trademark/registered
 
   // markdown links and images
-  /!?\[[^\]]+\]\([[^\)]+\)/g,
+  /!?\[[^\]]*\]\([^)]*\)/g,
 
   // mentions (Prefixed by non-word and terminated at word boundary)
   /\B@[\w][\w.-]{0,58}\b/g,

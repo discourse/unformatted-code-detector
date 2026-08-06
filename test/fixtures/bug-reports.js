@@ -15,6 +15,16 @@ It's still early for our relatively small site but this is looking promising.  I
 > > :imp: I wrote something nasty here
 >
 > Go ahead and **flag this post** <img src="/plugins/discourse-narrative-bot/images/font-awesome-flag.png" width="16" height="16"> and select **inappropriate** as the reason!`,
+  `![brave_WjmXaxCByJ|video](upload://nxpxrXT4P6iObc4hicCnAsmfL9D.mp4)
+
+The experience in the above video would have been much nicer if the selected tags that were now invalid just got deleted by changing the category, rather then letting me go into a broken state.`,
+  `Here are the three screens I went through:
+
+![step_one|690x387](upload://aaaaaaaaaaaaaaaaaaaaaaaaaaa.png)
+![step_two|690x387](upload://bbbbbbbbbbbbbbbbbbbbbbbbbbb.png)
+![step_three|690x387](upload://ccccccccccccccccccccccccccc.png)
+
+Hopefully that makes the problem clearer.`,
 ];
 
 export const falseNegatives = [];
