@@ -6,7 +6,7 @@ const ignoredContents = [
 
   /`[^`\n]+`/g, // inline backticks (must come after fenced code blocks)
 
-  /\[([a-z]+).*?\][\s\S]*?\[\/\1\]/gim, // BBCode tags
+  /\[([a-z]+)[^\]\n]*\][\s\S]*?\[\/\1\]/gi, // BBCode tags
 
   // URLs
   /https?:\/\/(_\([^() \n\t]+\)|[^() \n\t])+/g, // parens/underscores
