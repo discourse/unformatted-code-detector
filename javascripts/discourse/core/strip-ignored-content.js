@@ -9,7 +9,7 @@ const ignoredContents = [
   /\[([a-z]+).*?\][\s\S]*?\[\/\1\]/gim, // BBCode tags
 
   // URLs
-  /https?:\/\/(_\([^() \n\t]+\)|[^() \n\t])+/g, // parens/underscores
+  /(?:[a-z][a-z0-9+.-]*:\/\/|www\.)(_\([^() \n\t]+\)|[^() \n\t])+/gi, // parens/underscores
   // for Wikipedia-style URLs
 
   // emojis
@@ -22,6 +22,9 @@ const ignoredContents = [
 
   // markdown links and images
   /!?\[[^\]]*\]\([^)]*\)/g,
+
+  // hashtags (not preceded by `&`, so HTML entities stay intact)
+  /(?<![\w&/])#[\w:-][\w:.-]{0,99}/g,
 
   // mentions (Prefixed by non-word and terminated at word boundary)
   /\B@[\w][\w.-]{0,58}\b/g,

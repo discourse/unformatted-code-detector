@@ -53,6 +53,10 @@ export const noCode = [
   "That's Japanese. :???:\n\nFunny bug though.",
   "That's Japanese. :!:\n\nFunny bug though.",
   "Hey @some_username, how are you?",
+  "I think this belongs in #feature_requests rather than in #bug_reports",
+  "I have moved your topic over to #support:configuration",
+  "www.example.com/docs/some_long_page_name",
+  "www.google.com?foo[0]=bar&foo[1]=baz",
 ];
 
 export const withUnformattedCode = [
