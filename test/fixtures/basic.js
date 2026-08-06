@@ -52,6 +52,8 @@ export const noCode = [
   "That's Japanese. :stuck_out_tongue:\n\nFunny bug though.",
   "That's Japanese. :???:\n\nFunny bug though.",
   "That's Japanese. :!:\n\nFunny bug though.",
+  "That's Japanese. ^_^\n\nFunny bug though.",
+  "That's Japanese. ^__^\n\nFunny bug though.",
   "Hey @some_username, how are you?",
   "I think this belongs in #feature_requests rather than in #bug_reports",
   "I have moved your topic over to #support:configuration",
