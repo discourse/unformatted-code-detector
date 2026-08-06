@@ -1,4 +1,4 @@
-import { wrap } from "../helpers/utils";
+import { indent, wrap } from "../helpers/utils";
 
 export const noCode = [
   "hello world",
@@ -145,4 +145,8 @@ export const withBareHTML = [
 
 export const withFormattedCode = withUnformattedCode.map(wrap);
 
+export const withIndentedCode = withUnformattedCode.map(indent);
+
 export const withFormattedHTML = withBareHTML.map(wrap);
+
+export const withIndentedHTML = withBareHTML.map(indent);

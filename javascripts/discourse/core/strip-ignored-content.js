@@ -1,7 +1,7 @@
 const ignoredContents = [
   // properly formatted code
   /(^([`~])\2{2,})[^`~\n]*\n[\s\S]*?\n\1\2*\s*(?:\n|$)/gm, // backtick-/tilde-fenced block
-  /(?:^|(?:\n{2,}))\s*(?:(?: {4}|\t).*(?:\n|$))/g, // indented block
+  /(?:^|(?:\n{2,}))\s*(?:(?: {4}|\t).*(?:\n|$)|[ \t]*\n(?=[ \t]*(?: {4}|\t)))+/g, // indented block
   // lack of `m` flag is intentional (`^` must match beginning of input, not line)
 
   /`[^`\n]+`/g, // inline backticks (must come after fenced code blocks)

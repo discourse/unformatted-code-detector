@@ -4,6 +4,13 @@ export const wrap = (str) => {
   return str.split("\n").length > 1 ? "```\n" + str + "\n```" : "`" + str + "`";
 };
 
+export const indent = (str) => {
+  return str
+    .split("\n")
+    .map((line) => "    " + line)
+    .join("\n");
+};
+
 const truncate = (len) => (str) =>
   str.slice(0, len) + (str.length > len ? "..." : "");
 const toSingleLine = (str) => truncate(35)(str).replaceAll("\n", "\\n");
