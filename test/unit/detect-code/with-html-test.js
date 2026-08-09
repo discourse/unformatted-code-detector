@@ -5,6 +5,8 @@ import {
   withBareHTML,
   withFormattedCode,
   withFormattedHTML,
+  withIndentedCode,
+  withIndentedHTML,
   withUnformattedCode,
 } from "../../fixtures/basic";
 import { expectAll } from "../../helpers/utils";
@@ -18,6 +20,8 @@ module("Unformatted Code Detector | with HTML", function (hooks) {
   expectAll(detectUnformattedCode, noCode, false);
   expectAll(detectUnformattedCode, withUnformattedCode, true);
   expectAll(detectUnformattedCode, withFormattedCode, false);
+  expectAll(detectUnformattedCode, withIndentedCode, false);
   expectAll(detectUnformattedCode, withBareHTML, true);
   expectAll(detectUnformattedCode, withFormattedHTML, false);
+  expectAll(detectUnformattedCode, withIndentedHTML, false);
 });

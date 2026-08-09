@@ -1,4 +1,4 @@
-import { wrap } from "../helpers/utils";
+import { indent, wrap } from "../helpers/utils";
 
 export const noCode = [
   "hello world",
@@ -45,11 +45,20 @@ export const noCode = [
   'empty\n\n[quote="David_Bowie, post:8, topic:1120"][/quote]',
   "[abc](https://www.google.com)",
   "![abc](https://www.google.com/img.png)",
+  "![brave_WjmXaxCByJ|video](upload://nxpxrXT4P6iObc4hicCnAsmfL9D.mp4)",
+  "[my_export_file.csv|attachment](upload://hHkPBkPGDbFqNPfJZ2Cnh0OPFwj.csv)",
+  "[the setup_guide section](https://example.com/docs#setup_guide)",
   "That's Japanese. ;)\n\nFunny bug though.",
   "That's Japanese. :stuck_out_tongue:\n\nFunny bug though.",
   "That's Japanese. :???:\n\nFunny bug though.",
   "That's Japanese. :!:\n\nFunny bug though.",
+  "That's Japanese. ^_^\n\nFunny bug though.",
+  "That's Japanese. ^__^\n\nFunny bug though.",
   "Hey @some_username, how are you?",
+  "I think this belongs in #feature_requests rather than in #bug_reports",
+  "I have moved your topic over to #support:configuration",
+  "www.example.com/docs/some_long_page_name",
+  "www.google.com?foo[0]=bar&foo[1]=baz",
 ];
 
 export const withUnformattedCode = [
@@ -142,4 +151,8 @@ export const withBareHTML = [
 
 export const withFormattedCode = withUnformattedCode.map(wrap);
 
+export const withIndentedCode = withUnformattedCode.map(indent);
+
 export const withFormattedHTML = withBareHTML.map(wrap);
+
+export const withIndentedHTML = withBareHTML.map(indent);
